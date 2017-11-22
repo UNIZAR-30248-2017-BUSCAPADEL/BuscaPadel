@@ -52,14 +52,11 @@ public class MainActivity extends AppCompatActivity {
                 String fechaText = fecha.getText().toString();
                 String horaText = hora.getText().toString();
                 String lugarText = lugar.getText().toString();
-                String[] fechaParts = fechaText.split("/");
-                int fechaDay = Integer.parseInt(fechaParts[0]);
-                int fechaMonth = Integer.parseInt(fechaParts[1]);
-                int fechaYear = Integer.parseInt(fechaParts[2]);
+                String[] horaParts = horaText.split(":");
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
                 Date dateSelected = null;
-
-
+                int hora = Integer.parseInt(horaParts[0]);
+                int minutos = Integer.parseInt(horaParts[1]);
                 try {
                     dateSelected = simpleDateFormat.parse(fechaText);
                 } catch (ParseException e) {
@@ -99,7 +96,22 @@ public class MainActivity extends AppCompatActivity {
 
                                 }
                             });
-                } else if ()
+                } else if (hora < 9 || hora >= 21) {
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
+
+                    dlgAlert.setMessage("La hora debe ser a partir de las 9 y hasta las 21");
+                    dlgAlert.setTitle("Error...");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+
+                    dlgAlert.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                }
                 else {
                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
