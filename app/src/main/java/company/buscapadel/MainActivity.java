@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                             int cont = 0;//parse
                         }
 
-
                     });
 
 

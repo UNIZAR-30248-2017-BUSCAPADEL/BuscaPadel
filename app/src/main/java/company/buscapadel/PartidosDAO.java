@@ -75,10 +75,6 @@ public class PartidosDAO {
                     }
                 });
 
-
-
-
-
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(req);
 
