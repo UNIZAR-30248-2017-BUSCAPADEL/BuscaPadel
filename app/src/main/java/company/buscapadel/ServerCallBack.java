@@ -8,5 +8,4 @@ import org.json.JSONArray;
 
 public interface ServerCallBack{
     void onSuccess(JSONArray result);
-    void onSuccess(String result);
 }

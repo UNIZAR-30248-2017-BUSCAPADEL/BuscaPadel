@@ -82,10 +82,7 @@ public class MainActivity extends AppCompatActivity {
                             int cont = 0;//parse
                         }
 
-                        @Override
-                        public void onSuccess(String result) {
-                            int cont = 0;
-                        }
+
                     });
 
 
