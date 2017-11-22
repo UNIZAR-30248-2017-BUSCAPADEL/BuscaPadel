@@ -1,16 +1,24 @@
 package company.buscapadel;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.v7.app.AlertDialog;
+import android.app.AlertDialog;
+//import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                 } else {
-                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
+                    AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("Lugar: " + lugarText + " Fecha: " + fechaText +
                             " Hora: " + horaText);
@@ -66,6 +74,21 @@ public class MainActivity extends AppCompatActivity {
                     //ACTUALIZAR BASE DE DATOS
 //                    Intent i = new Intent(local, Modificar_Perfil_2.class);
 //                    startActivityForResult(i, 0);
+
+                    PartidosDAO partidos = new PartidosDAO();
+                    partidos.postPartido(lugarText, fechaText, horaText, "1", "1", new ServerCallBack() {
+                        @Override
+                        public void onSuccess(JSONArray result) {
+                            int cont = 0;//parse
+                        }
+
+                        @Override
+                        public void onSuccess(String result) {
+                            int cont = 0;
+                        }
+                    });
+
+
                 }
             }
         });
