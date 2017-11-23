@@ -19,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VerPartido"></activity>
+        <activity android:name=".VerPartido" />
+        <activity android:name=".MenuPrincipal" />
+        <activity android:name=".VerPerfil"></activity>
     </application>
 
 </manifest>
