@@ -20,6 +20,13 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import static java.lang.Math.abs;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView title;
@@ -45,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
                 String fechaText = fecha.getText().toString();
                 String horaText = hora.getText().toString();
                 String lugarText = lugar.getText().toString();
+                String[] horaParts = horaText.split(":");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
+                Date dateSelected = null;
+                int hora = Integer.parseInt(horaParts[0]);
+                int minutos = Integer.parseInt(horaParts[1]);
+                try {
+                    dateSelected = simpleDateFormat.parse(fechaText);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Date today = Calendar.getInstance().getTime();
 
                 if(fechaText.equals("") || horaText.equals("") || lugarText.equals(""))
                 {
@@ -62,7 +80,39 @@ public class MainActivity extends AppCompatActivity {
 
                                 }
                             });
-                } else {
+                }
+                else if (dateSelected.before(today) || superaElMes(today, dateSelected)) {
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
+
+                    dlgAlert.setMessage("La fecha debe ser posterior a hoy y no mas tarde de un mes");
+                    dlgAlert.setTitle("Error...");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+
+                    dlgAlert.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                } else if (hora < 9 || hora >= 21) {
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
+
+                    dlgAlert.setMessage("La hora debe ser a partir de las 9 y hasta las 21");
+                    dlgAlert.setTitle("Error...");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+
+                    dlgAlert.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                }
+                else {
                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("Lugar: " + lugarText + " Fecha: " + fechaText +
@@ -90,5 +140,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public boolean superaElMes(Date time1, Date time2) {
+        int daysApart = (int)((time2.getTime() - time1.getTime()) / (1000*60*60*24l));
+        if (abs(daysApart) >= 30)
+            return true;
+        else
+            return false;
     }
 }
