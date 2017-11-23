@@ -24,7 +24,7 @@ public class MenuPrincipal extends AppCompatActivity {
         buscarBoton = (Button) findViewById(R.id.button5);
         perfilBoton = (Button) findViewById(R.id.button6);
         final Intent crearPartido = new Intent(this, MainActivity.class);
-        final Intent buscarPartido = new Intent(this, MainActivity.class);
+        final Intent buscarPartido = new Intent(this, ListarPartidos.class);
         final Intent verPerfil = new Intent(this, VerPerfil.class);
 
         crearBoton.setOnClickListener(new View.OnClickListener() {
