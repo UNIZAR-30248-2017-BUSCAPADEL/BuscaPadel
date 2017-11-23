@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">BuscaPadel</string>
     <string name="no_partidos">No hay partidos disponibles</string>
-    <string name="fecha">Fecha</string>
-    <string name="hora">Hora</string>
-    <string name="lugar">Lugar</string>
-    <string name="numero">Número de jugadores</string>
+    <string name="fecha">Fecha:&#160;</string>
+    <string name="hora">Hora:&#160;</string>
+    <string name="lugar">Lugar:&#160;</string>
+    <string name="numero">Número de jugadores:&#160;</string>
 </resources>
