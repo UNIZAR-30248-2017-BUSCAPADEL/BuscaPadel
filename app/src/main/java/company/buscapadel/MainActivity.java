@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     partidos.postPartido(lugarText, fechaText, horaText, "1", "1", new ServerCallBack() {
                         @Override
                         public void onSuccess(JSONArray result) {
-                            int cont = 0;//parse
+
                         }
 
                     });

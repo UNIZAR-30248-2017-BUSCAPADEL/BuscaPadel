@@ -122,7 +122,7 @@ public class VerPartido extends AppCompatActivity {
                                 }
                             });
                 }
-                else if (Integer.valueOf(numeroText) == 4) {
+                /*else if (Integer.valueOf(numeroText) == 4) {
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("Partido completo");
@@ -137,7 +137,7 @@ public class VerPartido extends AppCompatActivity {
 
                                 }
                             });
-                }
+                }*/
                 else {
                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
@@ -150,6 +150,39 @@ public class VerPartido extends AppCompatActivity {
                     //ACTUALIZAR BASE DE DATOS
 //                    Intent i = new Intent(local, Modificar_Perfil_2.class);
 //                    startActivityForResult(i, 0);
+                    JSONObject aux = null;
+                    try{
+                        aux = partido.getJSONObject(0);
+                        int id = (int)aux.get("fkIdJugador2");
+                        String fecha = (String)aux.get("fecha");
+                        aux.put("fecha",fecha.substring(0,9));
+                        aux.put("fkIdJugador2", 1);
+                        /*if (id==0){
+                            aux.put("fkIdJugador2", "1");//idSesion
+                        }
+                        else {
+                            id = (int)aux.get("fkIdJugador3");
+                            if (id==0){
+                                aux.put("fkIdJugador3", "1");//idSesion
+                            }
+                            else {
+                                id = (int)aux.get("fkIdJugador4");
+                                if (id==0){
+                                    aux.put("fkIdJugador4", "1");//idSesion
+                                }
+                            }
+                        }*/
+                    } catch (Exception e){
+                        Log.d("Error: ", e.toString());
+                    }
+                    PartidosDAO partidosDAO = new PartidosDAO();
+                    partidosDAO.updatePartido(idPartido, aux, new ServerCallBack() {
+                        @Override
+                        public void onSuccess(JSONArray result) {
+
+                        }
+                    });
+
                 }
             }
         });

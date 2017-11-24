@@ -32,13 +32,12 @@ public class PartidosDAO {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.d("yo", response.toString());
                         callBack.onSuccess(response);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("yo", "Error: " + error.getMessage());
+                VolleyLog.d("Error: ", error.getMessage());
             }
         });
 
@@ -51,7 +50,7 @@ public class PartidosDAO {
         //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
         String url = "http://10.0.2.2:3000/api/partidos";
 
-        JSONObject jsonBody = new JSONObject();
+        final JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("lugar", lugar);
             jsonBody.put("fecha", fecha);
@@ -90,15 +89,37 @@ public class PartidosDAO {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.d("yo", response.toString());
                         callBack.onSuccess(response);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("yo", "Error: " + error.getMessage());
+                VolleyLog.d("Error: ", error.getMessage());
             }
         });
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(req);
+    }
+
+    public void updatePartido (int id, JSONObject toUpdate,final ServerCallBack callBack){
+        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
+        String url = "http://10.0.2.2:3000/api/partidos/";
+        url = url + String.valueOf(id);
+
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.PUT, url, toUpdate,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                    }
+                });
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(req);
