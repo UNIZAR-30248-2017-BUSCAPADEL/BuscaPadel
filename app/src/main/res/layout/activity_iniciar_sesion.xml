@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="company.buscapadel.iniciarSesion">
+    tools:context="company.buscapadel.iniciarSesion"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
 
     <TextView
         android:id="@+id/textView24"
@@ -12,28 +14,17 @@
         android:layout_height="wrap_content"
         android:text="Iniciar sesión"
         android:textSize="36sp"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="16dp"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="16dp"
+        tools:layout_editor_absoluteX="86dp" />
 
     <TextView
         android:id="@+id/textView25"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="98dp"
+        android:layout_height="50dp"
         android:text="Nombre de usuario"
         android:textSize="18sp"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/editText9"
-        app:layout_constraintRight_toRightOf="@+id/textView26"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/textView26"
-        app:layout_constraintTop_toTopOf="@+id/editText9" />
+        tools:layout_editor_absoluteY="93dp"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/textView26"
@@ -41,13 +32,9 @@
         android:layout_height="42dp"
         android:text="Contraseña"
         android:textSize="18sp"
-        tools:layout_constraintTop_creator="1"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="183dp"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="16dp" />
+        tools:layout_editor_absoluteY="183dp"
+        tools:layout_editor_absoluteX="16dp" />
 
     <EditText
         android:id="@+id/editText8"
@@ -55,12 +42,9 @@
         android:layout_height="38dp"
         android:ems="10"
         android:inputType="textPassword"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
         android:layout_marginEnd="32dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView26"
-        android:layout_marginRight="32dp" />
+        tools:layout_editor_absoluteY="183dp"
+        tools:layout_editor_absoluteX="181dp" />
 
     <EditText
         android:id="@+id/editText9"
@@ -69,27 +53,14 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Nombre de usuario"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/editText8"
-        app:layout_constraintRight_toRightOf="@+id/editText8"
-        android:layout_marginTop="77dp"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="80dp"
-        app:layout_constraintLeft_toLeftOf="@+id/editText8"
-        app:layout_constraintTop_toTopOf="@+id/textView24" />
+        tools:layout_editor_absoluteY="93dp"
+        tools:layout_editor_absoluteX="181dp" />
 
     <Button
         android:id="@+id/button8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Iniciar sesión"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="63dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        tools:layout_editor_absoluteY="400dp"
+        tools:layout_editor_absoluteX="130dp" />
 </android.support.constraint.ConstraintLayout>
