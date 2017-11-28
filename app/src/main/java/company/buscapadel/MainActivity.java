@@ -29,7 +29,6 @@ import static java.lang.Math.abs;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView title;
     private EditText lugar;
     private EditText fecha;
     private EditText hora;

@@ -21,8 +21,10 @@
         </activity>
         <activity android:name=".VerPartido" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".VerPerfil"></activity>
-        <activity android:name=".ListarPartidos"></activity>
+        <activity android:name=".VerPerfil" />
+        <activity android:name=".ListarPartidos" />
+        <activity android:name=".iniciarSesion" />
+        <activity android:name=".registro"></activity>
     </application>
 
 </manifest>
