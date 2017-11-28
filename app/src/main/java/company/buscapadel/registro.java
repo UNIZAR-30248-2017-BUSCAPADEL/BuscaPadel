@@ -33,10 +33,11 @@ public class registro extends AppCompatActivity {
         button = (Button) findViewById(R.id.button7);
 
         button.setOnClickListener(new View.OnClickListener() {
-            String passwordText = password.getText().toString();
-            String usernameText = username.getText().toString();
+
             public void onClick(View view) {
-                if (usernameText.isEmpty() || passwordText.isEmpty()) {
+                String passwordText = password.getText().toString();
+                String usernameText = username.getText().toString();
+                if (usernameText.equals("") || passwordText.equals("")) {
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("No puede haber campos vacíos");
@@ -67,6 +68,36 @@ public class registro extends AppCompatActivity {
 
                                 }
                             });
+                }
+                else {
+                    JugadoresDAO jugadoresDAO = new JugadoresDAO();
+                    jugadoresDAO.getJugadorRegistro(usernameText, new ServerCallBack() {
+                        @Override
+                        public void onSuccess(JSONArray result) {
+                            if (result.length() == 0){
+                                //Crear usuario
+                            }
+                            else {
+
+                                ((EditText) findViewById(R.id.editText2)).getText().clear();
+                                ((EditText) findViewById(R.id.editText5)).getText().clear();
+                                AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
+
+                                dlgAlert.setMessage("El correo pertenece a un usuario ya existente");
+                                dlgAlert.setTitle("Error...");
+                                dlgAlert.setPositiveButton("OK", null);
+                                dlgAlert.setCancelable(true);
+                                dlgAlert.create().show();
+
+                                dlgAlert.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
+                            }
+                        }
+                    });
                 }
                 // if username es unico y password tiene 8 o mas caracteres
                 //registro valido, registrar usuario

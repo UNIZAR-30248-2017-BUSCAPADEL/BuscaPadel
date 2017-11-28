@@ -63,6 +63,22 @@ public class iniciarSesion extends AppCompatActivity {
                 else if (1 != 0) {//usuario y contraseña validos?? CAMBIAR condicion!!!
 
                 }
+                else {
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
+
+                    dlgAlert.setMessage("El usuario o la contraseña son incorrectos");
+                    dlgAlert.setTitle("Error...");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+
+                    dlgAlert.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                }
                 // if username y password son correctos
                 //iniciar sesion
                 //else
