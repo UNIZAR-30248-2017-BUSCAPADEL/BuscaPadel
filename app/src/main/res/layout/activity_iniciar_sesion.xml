@@ -76,7 +76,7 @@
         android:layout_height="48dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Nombre de usuario"
+        android:hint="Nombre de usuario"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="@+id/editText8"
