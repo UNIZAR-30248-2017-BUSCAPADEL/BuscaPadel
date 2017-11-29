@@ -39,10 +39,10 @@ public class registro extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                String correoText = correo.getText().toString();
-                String passwordText = password.getText().toString();
+                final String correoText = correo.getText().toString();
+                final String passwordText = password.getText().toString();
                 String passwordRepText = passwordRepetida.getText().toString();
-                String usernameText = username.getText().toString();
+                final String usernameText = username.getText().toString();
                 if (usernameText.equals("") || passwordText.equals("") || correoText.equals("") || passwordRepText.equals("")) {
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
@@ -76,6 +76,9 @@ public class registro extends AppCompatActivity {
                             });
                 }
                 else if (!passwordText.equals(passwordRepText)) {
+
+                    ((EditText) findViewById(R.id.editText5)).getText().clear();
+                    ((EditText) findViewById(R.id.editText10)).getText().clear();
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("Las contraseñas deben coincidir");
@@ -92,18 +95,42 @@ public class registro extends AppCompatActivity {
                             });
                 }
                 else {
-                    JugadoresDAO jugadoresDAO = new JugadoresDAO();
-                    jugadoresDAO.getJugadorRegistro(usernameText, new ServerCallBack() {
+                    final JugadoresDAO jugadoresDAO = new JugadoresDAO();
+                    jugadoresDAO.getJugadorRegistro(correoText, new ServerCallBack() {
                         @Override
                         public void onSuccess(JSONArray result) {
                             if (result.length() == 0){
                                 //Crear usuario
-                                Boolean b = 1 == 1;
+                                jugadoresDAO.postJugador(correoText, usernameText, passwordText, new ServerCallBack() {
+                                    @Override
+                                    public void onSuccess(JSONArray result) {
+                                        ((EditText) findViewById(R.id.editText2)).getText().clear();
+                                        ((EditText) findViewById(R.id.editText5)).getText().clear();
+                                        ((EditText) findViewById(R.id.editText6)).getText().clear();
+                                        ((EditText) findViewById(R.id.editText10)).getText().clear();
+                                        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
+
+                                        dlgAlert.setMessage("Jugador creado correctamente");
+                                        dlgAlert.setTitle("Éxito...");
+                                        dlgAlert.setPositiveButton("OK", null);
+                                        dlgAlert.setCancelable(true);
+                                        dlgAlert.create().show();
+
+                                        dlgAlert.setPositiveButton("Ok",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+
+                                                    }
+                                                });
+                                    }
+                                });
                             }
                             else {
 
                                 ((EditText) findViewById(R.id.editText2)).getText().clear();
                                 ((EditText) findViewById(R.id.editText5)).getText().clear();
+                                ((EditText) findViewById(R.id.editText6)).getText().clear();
+                                ((EditText) findViewById(R.id.editText10)).getText().clear();
                                 AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                                 dlgAlert.setMessage("El correo pertenece a un usuario ya existente");
