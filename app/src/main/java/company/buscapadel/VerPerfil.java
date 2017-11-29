@@ -2,6 +2,8 @@ package company.buscapadel;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -11,17 +13,28 @@ public class VerPerfil extends AppCompatActivity {
 
     private TextView nombre;
     private TextView nivel;
+    private EditText nivelNuevo;
+    private Button introducirNivel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_perfil);
 
-        nombre = (TextView) findViewById(R.id.textView9);
-        nivel = (TextView) findViewById(R.id.textView10);
-        //hora = (EditText) findViewById(R.id.textView11);
+        nombre = (TextView) findViewById(R.id.textView12);
+        nivel = (TextView) findViewById(R.id.textView22);
+        nivelNuevo = (EditText) findViewById(R.id.editText7);
+        introducirNivel = (Button) findViewById(R.id.button11);
 
         fillData();
+
+        introducirNivel.setOnClickListener(new View.OnClickListener() {
+            String nivelNuevoText = nivelNuevo.getText().toString();
+            public void onClick(View view) {
+                //actualizar nivel
+            }
+        });
     }
 
     private void fillData() {
