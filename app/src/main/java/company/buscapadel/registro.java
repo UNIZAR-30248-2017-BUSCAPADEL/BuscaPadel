@@ -17,8 +17,10 @@ import java.util.Date;
 
 public class registro extends AppCompatActivity {
 
+    private EditText correo;
     private EditText username;
     private EditText password;
+    private EditText passwordRepetida;
     private Button button;
 
 
@@ -28,16 +30,20 @@ public class registro extends AppCompatActivity {
         setContentView(R.layout.activity_registro);
 
         final company.buscapadel.registro local = this;
+        correo = (EditText) findViewById(R.id.editText6);
         username = (EditText) findViewById(R.id.editText2);
         password = (EditText) findViewById(R.id.editText5);
+        passwordRepetida = (EditText) findViewById(R.id.editText10);
         button = (Button) findViewById(R.id.button7);
 
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                String correoText = correo.getText().toString();
                 String passwordText = password.getText().toString();
+                String passwordRepText = passwordRepetida.getText().toString();
                 String usernameText = username.getText().toString();
-                if (usernameText.equals("") || passwordText.equals("")) {
+                if (usernameText.equals("") || passwordText.equals("") || correoText.equals("") || passwordRepText.equals("")) {
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("No puede haber campos vacíos");
@@ -69,6 +75,22 @@ public class registro extends AppCompatActivity {
                                 }
                             });
                 }
+                else if (!passwordText.equals(passwordRepText)) {
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
+
+                    dlgAlert.setMessage("Las contraseñas deben coincidir");
+                    dlgAlert.setTitle("Error...");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+
+                    dlgAlert.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                }
                 else {
                     JugadoresDAO jugadoresDAO = new JugadoresDAO();
                     jugadoresDAO.getJugadorRegistro(usernameText, new ServerCallBack() {
@@ -76,6 +98,7 @@ public class registro extends AppCompatActivity {
                         public void onSuccess(JSONArray result) {
                             if (result.length() == 0){
                                 //Crear usuario
+                                Boolean a = 1 == 1;
                             }
                             else {
 
