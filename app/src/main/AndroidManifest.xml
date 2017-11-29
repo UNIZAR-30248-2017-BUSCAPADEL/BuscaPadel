@@ -24,7 +24,8 @@
         <activity android:name=".VerPerfil" />
         <activity android:name=".ListarPartidos" />
         <activity android:name=".iniciarSesion" />
-        <activity android:name=".registro"></activity>
+        <activity android:name=".registro" />
+        <activity android:name=".PrimeraPantalla"></activity>
     </application>
 
 </manifest>
