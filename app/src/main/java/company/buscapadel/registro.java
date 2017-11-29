@@ -149,12 +149,6 @@ public class registro extends AppCompatActivity {
                         }
                     });
                 }
-                // if username es unico y password tiene 8 o mas caracteres
-                //registro valido, registrar usuario
-                //else if username no es unico
-                //aviso de username no unico
-                //else if password tiene menos de 8 caracteres
-                //aviso de password menor de 8 caracteres
             }
         });
 
