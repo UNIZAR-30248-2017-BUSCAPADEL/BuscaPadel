@@ -45,7 +45,7 @@ public class PartidosDAO {
         AppController.getInstance().addToRequestQueue(req);
     }
 
-    public void postPartido (final String lugar, final String fecha, final String hora, final String nivel,
+    public void postPartido (final String lugar, final String fecha, final String hora, final int nivel,
                              final int idJug, final ServerCallBack callBack) {
         //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
         String url = "http://10.0.2.2:3000/api/partidos";

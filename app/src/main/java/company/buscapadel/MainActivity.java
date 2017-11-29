@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                                 JSONObject jsonObject = result.getJSONObject(0);
                                 int nivel = (int)jsonObject.get("nivel");
                                 PartidosDAO partidos = new PartidosDAO();
-                                partidos.postPartido(lugarText, fechaText, horaText, "1", idSesion, new ServerCallBack() {
+                                partidos.postPartido(lugarText, fechaText, horaText, nivel, idSesion, new ServerCallBack() {
                                     @Override
                                     public void onSuccess(JSONArray result) {
 
