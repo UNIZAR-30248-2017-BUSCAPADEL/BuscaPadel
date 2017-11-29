@@ -98,7 +98,7 @@ public class registro extends AppCompatActivity {
                         public void onSuccess(JSONArray result) {
                             if (result.length() == 0){
                                 //Crear usuario
-                                Boolean a = 1 == 1;
+                                Boolean b = 1 == 1;
                             }
                             else {
 
