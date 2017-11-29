@@ -75,7 +75,7 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:hint="Correo"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintBottom_creator="1"

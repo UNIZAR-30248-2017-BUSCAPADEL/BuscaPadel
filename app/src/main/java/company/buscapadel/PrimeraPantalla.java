@@ -16,8 +16,8 @@ public class PrimeraPantalla extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_primera_pantalla);
 
-        registroButton = (Button) findViewById(R.id.button9);
-        iniciarSesionButton = (Button) findViewById(R.id.button10);
+        registroButton = (Button) findViewById(R.id.button10);
+        iniciarSesionButton = (Button) findViewById(R.id.button9);
         final Intent iniciar = new Intent(this, iniciarSesion.class);
         final Intent registrar = new Intent(this, registro.class);
 

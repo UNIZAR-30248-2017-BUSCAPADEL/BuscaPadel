@@ -13,6 +13,8 @@ public class MenuPrincipal extends AppCompatActivity {
     private Button buscarBoton;
     private Button perfilBoton;
 
+    private String correoSesion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

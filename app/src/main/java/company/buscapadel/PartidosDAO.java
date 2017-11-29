@@ -46,7 +46,7 @@ public class PartidosDAO {
     }
 
     public void postPartido (final String lugar, final String fecha, final String hora, final String nivel,
-                             final String idJug, final ServerCallBack callBack) {
+                             final int idJug, final ServerCallBack callBack) {
         //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
         String url = "http://10.0.2.2:3000/api/partidos";
 
@@ -56,6 +56,7 @@ public class PartidosDAO {
             jsonBody.put("fecha", fecha);
             jsonBody.put("hora", hora);
             jsonBody.put("nivel", nivel);
+            jsonBody.put("fkIdJugador1", idJug);
         } catch (org.json.JSONException e) {
             Log.d("Error", e.toString());
         }

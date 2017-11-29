@@ -27,15 +27,15 @@ public class iniciarSesion extends AppCompatActivity {
         setContentView(R.layout.activity_iniciar_sesion);
 
         final company.buscapadel.iniciarSesion local = this;
-        correo = (EditText) findViewById(R.id.editText8);
-        password = (EditText) findViewById(R.id.editText9);
+        correo = (EditText) findViewById(R.id.editText9);
+        password = (EditText) findViewById(R.id.editText8);
         button = (Button) findViewById(R.id.button8);
 
         button.setOnClickListener(new View.OnClickListener() {
-            String passwordText = password.getText().toString();
-            String correoText = correo.getText().toString();
             public void onClick(View view) {
-                if (correoText.isEmpty() || passwordText.isEmpty()) {
+                final String passwordText = password.getText().toString();
+                final String correoText = correo.getText().toString();
+                if (correoText.equals("") || passwordText.equals("")) {
                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("No puede haber campos vacíos");
@@ -73,8 +73,9 @@ public class iniciarSesion extends AppCompatActivity {
                             try {
                                 JSONObject jsonObject = result.getJSONObject(0);
                                 String contrasena = (String) jsonObject.get("contrasena");
+                                int id = (int) jsonObject.get("id");
                                 if (contrasena.equals(passwordText)) {//usuario y contraseña validos?? CAMBIAR condicion!!!
-                                   restoApp(correoText);
+                                   restoApp(correoText, id);
                                 } else {
                                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
@@ -102,9 +103,10 @@ public class iniciarSesion extends AppCompatActivity {
         });
     }
 
-    private void restoApp(String correo) {
+    private void restoApp(String correo, int id) {
         Intent i = new Intent(this, MenuPrincipal.class);
         i.putExtra("correo", correo);
+        i.putExtra("id", id);
         startActivityForResult(i, ACTIVITY_MENU_PRINCIPAL);
     }
 }

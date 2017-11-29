@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
 //import android.support.v7.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,10 +35,17 @@ public class MainActivity extends AppCompatActivity {
     private EditText hora;
     private Button crearButton;
 
+    private int idSesion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+
+        // Devuelve el id del partido
+        idSesion = intent.getIntExtra("id", 0);
 
         final company.buscapadel.MainActivity local = this;
         lugar = (EditText) findViewById(R.id.editText);
@@ -48,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
         crearButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                String fechaText = fecha.getText().toString();
-                String horaText = hora.getText().toString();
-                String lugarText = lugar.getText().toString();
+                final String fechaText = fecha.getText().toString();
+                final String horaText = hora.getText().toString();
+                final String lugarText = lugar.getText().toString();
                 String[] horaParts = horaText.split(":");
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
                 Date dateSelected = null;
@@ -124,16 +132,33 @@ public class MainActivity extends AppCompatActivity {
 //                    Intent i = new Intent(local, Modificar_Perfil_2.class);
 //                    startActivityForResult(i, 0);
 
-                    PartidosDAO partidos = new PartidosDAO();
-                    partidos.postPartido(lugarText, fechaText, horaText, "1", "1", new ServerCallBack() {
+                    JugadoresDAO jugadoresDAO = new JugadoresDAO();
+                    jugadoresDAO.getJugador(idSesion, new ServerCallBack() {
                         @Override
                         public void onSuccess(JSONArray result) {
+                            try{
+                                JSONObject jsonObject = result.getJSONObject(0);
+                                int nivel = (int)jsonObject.get("nivel");
+                                PartidosDAO partidos = new PartidosDAO();
+                                partidos.postPartido(lugarText, fechaText, horaText, "1", idSesion, new ServerCallBack() {
+                                    @Override
+                                    public void onSuccess(JSONArray result) {
 
+                                    }
+                                });
+                            } catch (Exception e){
+                                Log.d("Error: ", e.toString());
+                                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                                dlgAlert.setMessage("Es necesario haber introducido el nivel " +
+                                        "previamente para crear partidos");
+                                dlgAlert.setTitle("Error...");
+                                dlgAlert.setPositiveButton("OK", null);
+                                dlgAlert.setCancelable(true);
+                                dlgAlert.create().show();
+                            }
                         }
-
                     });
-
-
                 }
             }
         });
