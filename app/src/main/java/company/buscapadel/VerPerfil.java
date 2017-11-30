@@ -37,6 +37,7 @@ public class VerPerfil extends AppCompatActivity {
         introducirNivel = (Button) findViewById(R.id.button11);
         misPartidos = (Button) findViewById(R.id.button12);
         final Intent partidosPropios = new Intent(this, partidosPropios.class);
+        partidosPropios.putExtra("id", idSesion);
 
         fillData();
 
@@ -56,7 +57,7 @@ public class VerPerfil extends AppCompatActivity {
 
     private void fillData() {
         JugadoresDAO jugadoresDAO = new JugadoresDAO();
-        jugadoresDAO.getJugador(1, new ServerCallBack() {
+        jugadoresDAO.getJugador(idSesion, new ServerCallBack() {
             @Override
             public void onSuccess(JSONArray result) {
                 showUser(result);
