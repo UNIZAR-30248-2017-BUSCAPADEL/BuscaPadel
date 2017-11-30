@@ -50,7 +50,7 @@ public class iniciarSesion extends AppCompatActivity {
 
                                 }
                             });
-                } else if (passwordText.length() < 8) { //usuario o contraseña invalida CAMBIAR condicion!!!
+                } else if (passwordText.length() < 8) {
                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("La contraseña debe tener 8 ó más caracteres");
@@ -74,7 +74,7 @@ public class iniciarSesion extends AppCompatActivity {
                                 JSONObject jsonObject = result.getJSONObject(0);
                                 String contrasena = (String) jsonObject.get("contrasena");
                                 int id = (int) jsonObject.get("id");
-                                if (contrasena.equals(passwordText)) {//usuario y contraseña validos?? CAMBIAR condicion!!!
+                                if (contrasena.equals(passwordText)) {
                                    restoApp(correoText, id);
                                 } else {
                                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
