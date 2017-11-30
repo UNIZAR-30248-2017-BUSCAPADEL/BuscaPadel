@@ -18,18 +18,25 @@ public class VerPerfil extends AppCompatActivity {
     private Button introducirNivel;
     private Button misPartidos;
 
+    private int idSesion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_perfil);
 
+        Intent intent = getIntent();
+
+        // Devuelve el id del usuario
+        idSesion = intent.getIntExtra("id", 0);
+
         nombre = (TextView) findViewById(R.id.textView12);
         nivel = (TextView) findViewById(R.id.textView22);
         nivelNuevo = (EditText) findViewById(R.id.editText7);
         introducirNivel = (Button) findViewById(R.id.button11);
         misPartidos = (Button) findViewById(R.id.button12);
-        final Intent i = new Intent(this, partidosPropios.class);
+        final Intent partidosPropios = new Intent(this, partidosPropios.class);
 
         fillData();
 
@@ -41,9 +48,8 @@ public class VerPerfil extends AppCompatActivity {
         });
 
         misPartidos.setOnClickListener(new View.OnClickListener() {
-            String nivelNuevoText = nivelNuevo.getText().toString();
             public void onClick(View view) {
-                //actualizar nivel
+                startActivity(partidosPropios);
             }
         });
     }

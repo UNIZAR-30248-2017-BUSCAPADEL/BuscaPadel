@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        // Devuelve el id del partido
+        // Devuelve el id del usuario
         idSesion = intent.getIntExtra("id", 0);
 
         final company.buscapadel.MainActivity local = this;

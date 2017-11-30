@@ -21,6 +21,9 @@ public class MenuPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
         final company.buscapadel.MenuPrincipal local = this;
         crearBoton = (Button) findViewById(R.id.button4);
         buscarBoton = (Button) findViewById(R.id.button5);
@@ -28,6 +31,9 @@ public class MenuPrincipal extends AppCompatActivity {
         final Intent crearPartido = new Intent(this, MainActivity.class);
         final Intent buscarPartido = new Intent(this, ListarPartidos.class);
         final Intent verPerfil = new Intent(this, VerPerfil.class);
+        crearPartido.putExtras(bundle);
+        buscarPartido.putExtras(bundle);
+        verPerfil.putExtras(bundle);
 
         crearBoton.setOnClickListener(new View.OnClickListener() {
 
