@@ -82,39 +82,34 @@ public class ListarPartidos extends AppCompatActivity {
             startManagingCursor(partidoCursor);
 
             for (int i = 0; i < result.length(); i++) {
+                int num = 0;
+                int id = 0;
+                String fecha = null;
+                String hora = null;
+                String lugar = null;
                 try {
                     JSONObject jsonObject = result.getJSONObject(i);
-                    int id = (int) jsonObject.get("id") ;
-                    String fecha = (String) jsonObject.get("fecha");
+                    id = (int) jsonObject.get("id") ;
+                    fecha = (String) jsonObject.get("fecha");
                     fecha = fecha.substring(0,9);
-                    String hora = (String) jsonObject.get("hora");
-                    String lugar = (String) jsonObject.get("lugar");
+                    hora = (String) jsonObject.get("hora");
+                    lugar = (String) jsonObject.get("lugar");
                     int id1 = (int) jsonObject.get("fkIdJugador1");
+                    num++;
                     int id2 = (int) jsonObject.get("fkIdJugador2");
+                    num++;
                     int id3 = (int) jsonObject.get("fkIdJugador3");
+                    num++;
                     int id4 = (int) jsonObject.get("fkIdJugador4");
-
-                    int num = 0;
-                    if (id1 != 0) {
-                        num++;
-                    }
-                    if (id2 != 0) {
-                        num++;
-                    }
-                    if (id3 != 0) {
-                        num++;
-                    }
-                    if (id4 != 0) {
-                        num++;
-                    }
-                    String numero = String.valueOf(num);
-
-                    partidoCursor.addRow(new Object[]{i, fecha, hora,
-                            lugar, numero, id});
+                    num++;
 
                 } catch (Exception e) {
                     Log.d("Error", e.toString());
                 }
+                String numero = String.valueOf(num);
+
+                partidoCursor.addRow(new Object[]{i, fecha, hora,
+                        lugar, numero, id});
             }
             // and an array of the fields we want to bind those fields to
             int[] to = new int[]{R.id.fecha, R.id.hora,
