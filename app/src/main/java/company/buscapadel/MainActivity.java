@@ -60,14 +60,16 @@ public class MainActivity extends AppCompatActivity {
                 final String horaText = hora.getText().toString();
                 final String lugarText = lugar.getText().toString();
                 String[] horaParts = horaText.split(":");
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
                 Date dateSelected = null;
                 int hora = Integer.parseInt(horaParts[0]);
                 int minutos = Integer.parseInt(horaParts[1]);
+                boolean fechaIncorrecta = false;
                 try {
                     dateSelected = simpleDateFormat.parse(fechaText);
                 } catch (ParseException e) {
                     e.printStackTrace();
+                    fechaIncorrecta = true;
                 }
                 Date today = Calendar.getInstance().getTime();
 
@@ -76,6 +78,22 @@ public class MainActivity extends AppCompatActivity {
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("Todos estos campos son obligatorios");
+                    dlgAlert.setTitle("Error...");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+
+                    dlgAlert.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                }
+                else if (fechaIncorrecta){
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
+
+                    dlgAlert.setMessage("El formato de fecha es incorrecto, usar yyyy-mm-dd");
                     dlgAlert.setTitle("Error...");
                     dlgAlert.setPositiveButton("OK", null);
                     dlgAlert.setCancelable(true);
@@ -120,18 +138,6 @@ public class MainActivity extends AppCompatActivity {
                             });
                 }
                 else {
-                    AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
-
-                    dlgAlert.setMessage("Lugar: " + lugarText + " Fecha: " + fechaText +
-                            " Hora: " + horaText);
-                    dlgAlert.setTitle("Partido Creado");
-                    dlgAlert.setPositiveButton("OK", null);
-                    dlgAlert.setCancelable(true);
-                    dlgAlert.create().show();
-                    //ACTUALIZAR BASE DE DATOS
-//                    Intent i = new Intent(local, Modificar_Perfil_2.class);
-//                    startActivityForResult(i, 0);
-
                     JugadoresDAO jugadoresDAO = new JugadoresDAO();
                     jugadoresDAO.getJugador(idSesion, new ServerCallBack() {
                         @Override
@@ -143,7 +149,14 @@ public class MainActivity extends AppCompatActivity {
                                 partidos.postPartido(lugarText, fechaText, horaText, nivel, idSesion, new ServerCallBack() {
                                     @Override
                                     public void onSuccess(JSONArray result) {
+                                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
+                                        dlgAlert.setMessage("Lugar: " + lugarText + " Fecha: " + fechaText +
+                                                " Hora: " + horaText);
+                                        dlgAlert.setTitle("Partido Creado");
+                                        dlgAlert.setPositiveButton("OK", null);
+                                        dlgAlert.setCancelable(true);
+                                        dlgAlert.create().show();
                                     }
                                 });
                             } catch (Exception e){

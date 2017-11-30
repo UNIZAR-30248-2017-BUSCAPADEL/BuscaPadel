@@ -62,41 +62,6 @@
                 android:textSize="20sp"/>
         </LinearLayout>
 
-        <LinearLayout android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/numero"
-                android:fontFamily="sans-serif-medium"
-                android:textSize="20sp"/>
-            <TextView android:id="@+id/numero"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-medium"
-                android:textSize="20sp"/>
-        </LinearLayout>
-
-        <LinearLayout android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:visibility="gone"
-                android:textSize="20sp"/>
-            <TextView android:id="@+id/id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="gone"
-                android:fontFamily="sans-serif-medium"
-                android:textSize="20sp"/>
-        </LinearLayout>
-
     </LinearLayout>
 
 

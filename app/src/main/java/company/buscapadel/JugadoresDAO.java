@@ -122,4 +122,39 @@ public class JugadoresDAO {
 
 
     }
+
+    public void actualizarNivel (int id, int nivel, final ServerCallBack callBack){
+        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
+        String url = "http://10.0.2.2:3000/api/nivel/";
+        url = url + id;
+
+        final JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("nivel", nivel);
+            jsonBody.put("id", id);
+        } catch (org.json.JSONException e) {
+            Log.d("Error", e.toString());
+        }
+
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.PUT, url, jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        JSONArray jsonArray = new JSONArray();
+                        jsonArray.put(jsonObject);
+                        callBack.onSuccess(jsonArray);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                    }
+                });
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(req);
+
+
+    }
 }

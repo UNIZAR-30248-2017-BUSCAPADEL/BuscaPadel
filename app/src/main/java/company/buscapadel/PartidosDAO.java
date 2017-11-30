@@ -65,7 +65,9 @@ public class PartidosDAO {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-
+                        JSONArray jsonArray = new JSONArray();
+                        jsonArray.put(jsonObject);
+                        callBack.onSuccess(jsonArray);
                     }
                 },
                 new Response.ErrorListener() {

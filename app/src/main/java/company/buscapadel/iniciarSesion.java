@@ -70,32 +70,49 @@ public class iniciarSesion extends AppCompatActivity {
                     jugadoresDAO.getJugadorRegistro(correoText, new ServerCallBack() {
                         @Override
                         public void onSuccess(JSONArray result) {
-                            try {
-                                JSONObject jsonObject = result.getJSONObject(0);
-                                String contrasena = (String) jsonObject.get("contrasena");
-                                int id = (int) jsonObject.get("id");
-                                if (contrasena.equals(passwordText)) {
-                                   restoApp(correoText, id);
-                                } else {
-                                    AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+                            if (result.length()!=0){
+                                try {
+                                    JSONObject jsonObject = result.getJSONObject(0);
+                                    String contrasena = (String) jsonObject.get("contrasena");
+                                    int id = (int) jsonObject.get("id");
+                                    if (contrasena.equals(passwordText)) {
+                                        restoApp(correoText, id);
+                                    } else {
+                                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
-                                    dlgAlert.setMessage("El correo o la contraseña son incorrectos");
-                                    dlgAlert.setTitle("Error...");
-                                    dlgAlert.setPositiveButton("OK", null);
-                                    dlgAlert.setCancelable(true);
-                                    dlgAlert.create().show();
+                                        dlgAlert.setMessage("El correo o la contraseña son incorrectos");
+                                        dlgAlert.setTitle("Error...");
+                                        dlgAlert.setPositiveButton("OK", null);
+                                        dlgAlert.setCancelable(true);
+                                        dlgAlert.create().show();
 
-                                    dlgAlert.setPositiveButton("Ok",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
+                                        dlgAlert.setPositiveButton("Ok",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
 
-                                                }
-                                            });
+                                                    }
+                                                });
+                                    }
+                                } catch (Exception e) {
+                                    Log.d("Error:", e.toString());
                                 }
-                            } catch (Exception e) {
-                                Log.d("Error:", e.toString());
                             }
+                            else {
+                                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
+                                dlgAlert.setMessage("El correo no ha sido registrado");
+                                dlgAlert.setTitle("Error...");
+                                dlgAlert.setPositiveButton("OK", null);
+                                dlgAlert.setCancelable(true);
+                                dlgAlert.create().show();
+
+                                dlgAlert.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
+                            }
                         }
                     });
                 }

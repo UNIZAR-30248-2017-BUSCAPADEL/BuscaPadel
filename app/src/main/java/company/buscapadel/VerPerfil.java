@@ -1,5 +1,7 @@
 package company.buscapadel;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +28,8 @@ public class VerPerfil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_perfil);
 
+        final VerPerfil local = this;
+
         Intent intent = getIntent();
 
         // Devuelve el id del usuario
@@ -42,9 +46,28 @@ public class VerPerfil extends AppCompatActivity {
         fillData();
 
         introducirNivel.setOnClickListener(new View.OnClickListener() {
-            String nivelNuevoText = nivelNuevo.getText().toString();
             public void onClick(View view) {
-                //actualizar nivel
+                String nivelNuevoText = nivelNuevo.getText().toString();
+                JugadoresDAO jugadoresDAO = new JugadoresDAO();
+                jugadoresDAO.actualizarNivel(idSesion, Integer.parseInt(nivelNuevoText), new ServerCallBack() {
+                    @Override
+                    public void onSuccess(JSONArray result) {
+                        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
+
+                        dlgAlert.setMessage("Nivel añadido correctamente");
+                        dlgAlert.setTitle("Éxito");
+                        dlgAlert.setPositiveButton("OK", null);
+                        dlgAlert.setCancelable(true);
+                        dlgAlert.create().show();
+
+                        dlgAlert.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                    }
+                });
             }
         });
 
