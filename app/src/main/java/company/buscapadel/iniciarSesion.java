@@ -78,6 +78,8 @@ public class iniciarSesion extends AppCompatActivity {
                                     if (contrasena.equals(passwordText)) {
                                         restoApp(correoText, id);
                                     } else {
+
+                                        ((EditText) findViewById(R.id.editText8)).getText().clear();
                                         AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
                                         dlgAlert.setMessage("El correo o la contraseña son incorrectos");
@@ -98,6 +100,7 @@ public class iniciarSesion extends AppCompatActivity {
                                 }
                             }
                             else {
+                                ((EditText) findViewById(R.id.editText8)).getText().clear();
                                 AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
                                 dlgAlert.setMessage("El correo no ha sido registrado");
