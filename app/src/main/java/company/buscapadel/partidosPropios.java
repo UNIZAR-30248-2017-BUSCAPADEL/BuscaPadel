@@ -103,7 +103,7 @@ public class partidosPropios extends AppCompatActivity {
 
             // Now create an array adapter and set it to display using our row
             SimpleCursorAdapter partido =
-                    new SimpleCursorAdapter(this, R.layout.row_listar_partidos, partidoCursor,
+                    new SimpleCursorAdapter(this, R.layout.row_partidos_propios, partidoCursor,
                             from, to);
             listView.setAdapter(partido);
         }
