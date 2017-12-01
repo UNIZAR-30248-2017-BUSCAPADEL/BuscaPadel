@@ -37,6 +37,8 @@ public class VerPartido extends AppCompatActivity {
     private int nivelText;
     private String numeroText;
 
+    private int nivelUsuario;
+
     private int idSesion;
 
     final company.buscapadel.VerPartido local = this;
@@ -99,10 +101,22 @@ public class VerPartido extends AppCompatActivity {
     }
 
     private void fillonClick() {
+        JugadoresDAO jugadoresDAO = new JugadoresDAO();
+        jugadoresDAO.getJugador(idSesion, new ServerCallBack() {
+            @Override
+            public void onSuccess(JSONArray result) {
+                try {
+                    JSONObject jsonObject = result.getJSONObject(0);
+                    nivelUsuario = (int) jsonObject.get("nivel");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, true);
         unirseBoton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                if (nivelText > nivelText + 0.5 || nivelText < nivelText - 0.5) {
+                if (nivelUsuario > nivelText + 0.5 || nivelUsuario < nivelText - 0.5) {
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("Nivel de partido no adecuado para usuario");
