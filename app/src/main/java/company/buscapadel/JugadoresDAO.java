@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -18,7 +19,7 @@ import org.json.JSONObject;
 
 public class JugadoresDAO {
 
-    public void getJugadores (final ServerCallBack callBack){
+    public void getJugadores (final ServerCallBack callBack, final boolean firstTime){
 
         //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
         String url = "http://10.0.2.2:3000/api/jugadores";
@@ -32,7 +33,10 @@ public class JugadoresDAO {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("Error: ", error.getMessage());
+                if (firstTime && error instanceof TimeoutError) {
+                    // note : may cause recursive invoke if always timeout.
+                    getJugadores(callBack, false);
+                }
             }
         });
 
@@ -41,7 +45,7 @@ public class JugadoresDAO {
 
     }
 
-    public void getJugador (int id, final ServerCallBack callBack){
+    public void getJugador (final int id, final ServerCallBack callBack, final boolean firstTime){
 
         //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
         String url = "http://10.0.2.2:3000/api/jugadores/";
@@ -56,7 +60,10 @@ public class JugadoresDAO {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("Error: ", error.getMessage());
+                if (firstTime && error instanceof TimeoutError) {
+                    // note : may cause recursive invoke if always timeout.
+                    getJugador(id,callBack, false);
+                }
             }
         });
 
@@ -64,7 +71,7 @@ public class JugadoresDAO {
         AppController.getInstance().addToRequestQueue(req);
     }
 
-    public void getJugadorRegistro (String correo, final ServerCallBack callBack){
+    public void getJugadorRegistro (final String correo, final ServerCallBack callBack, final boolean firstTime){
 
         //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
         String url = "http://10.0.2.2:3000/api/registro/";
@@ -80,6 +87,10 @@ public class JugadoresDAO {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("Error: ", error.getMessage());
+                if (firstTime && error instanceof TimeoutError) {
+                    // note : may cause recursive invoke if always timeout.
+                    getJugadorRegistro(correo,callBack, false);
+                }
             }
         });
 
@@ -88,7 +99,7 @@ public class JugadoresDAO {
     }
 
     public void postJugador (final String correo, final String nombre, final String contrasena,
-                             final ServerCallBack callBack) {
+                             final ServerCallBack callBack, final boolean firstTime) {
         //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
         String url = "http://10.0.2.2:3000/api/jugadores";
 
@@ -113,7 +124,10 @@ public class JugadoresDAO {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-
+                        if (firstTime && volleyError instanceof TimeoutError) {
+                            // note : may cause recursive invoke if always timeout.
+                            postJugador(correo,nombre,contrasena,callBack, false);
+                        }
                     }
                 });
 
@@ -123,7 +137,7 @@ public class JugadoresDAO {
 
     }
 
-    public void actualizarNivel (int id, int nivel, final ServerCallBack callBack){
+    public void actualizarNivel (final int id, final int nivel, final ServerCallBack callBack, final boolean firstTime){
         //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
         String url = "http://10.0.2.2:3000/api/nivel/";
         url = url + id;
@@ -148,7 +162,10 @@ public class JugadoresDAO {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-
+                        if (firstTime && volleyError instanceof TimeoutError) {
+                            // note : may cause recursive invoke if always timeout.
+                            actualizarNivel(id,nivel,callBack, false);
+                        }
                     }
                 });
 
