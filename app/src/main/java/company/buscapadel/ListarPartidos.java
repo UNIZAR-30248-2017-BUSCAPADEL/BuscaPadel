@@ -27,10 +27,15 @@ public class ListarPartidos extends AppCompatActivity {
     private ListView listView;
     private static Bundle extras;
 
+    private int idSesion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_partidos);
+
+        Intent intent = getIntent();
+        idSesion = intent.getIntExtra("id",0);
 
         listView = (ListView) findViewById(R.id.list);
 
@@ -126,6 +131,7 @@ public class ListarPartidos extends AppCompatActivity {
     private void verPartido(int idPartido) {
         Intent i = new Intent(this, VerPartido.class);
         i.putExtra("idPartido", idPartido);
+        i.putExtra("id", idSesion);
         startActivityForResult(i, ACTIVITY_VER_PARTIDO);
     }
 }

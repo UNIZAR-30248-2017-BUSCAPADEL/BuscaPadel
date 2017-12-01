@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class VerPartido extends AppCompatActivity {
@@ -36,6 +37,8 @@ public class VerPartido extends AppCompatActivity {
     private int nivelText;
     private String numeroText;
 
+    private int idSesion;
+
     final company.buscapadel.VerPartido local = this;
 
     @Override
@@ -47,7 +50,7 @@ public class VerPartido extends AppCompatActivity {
 
         // Devuelve el id del partido
         idPartido = intent.getIntExtra("idPartido",0);
-
+        idSesion = intent.getIntExtra("id",0);
         getPartido();
 
         fecha = (TextView) findViewById(R.id.textView3);
@@ -57,6 +60,7 @@ public class VerPartido extends AppCompatActivity {
     }
 
     private void datosPartido() {
+        int num = 0;
         try {
             JSONObject jsonObject = partido.getJSONObject(0);
             int id = (int) jsonObject.get("id");
@@ -66,26 +70,18 @@ public class VerPartido extends AppCompatActivity {
             lugarText = (String) jsonObject.get("lugar");
             nivelText = (int) jsonObject.get("nivel");
             int id1 = (int) jsonObject.get("fkIdJugador1");
+            num++;
             int id2 = (int) jsonObject.get("fkIdJugador2");
+            num++;
             int id3 = (int) jsonObject.get("fkIdJugador3");
+            num++;
             int id4 = (int) jsonObject.get("fkIdJugador4");
-            int num = 0;
-            if (id1 != 0) {
-                num++;
-            }
-            if (id2 != 0) {
-                num++;
-            }
-            if (id3 != 0) {
-                num++;
-            }
-            if (id4 != 0) {
-                num++;
-            }
-            numeroText = String.valueOf(num);
-        } catch (Exception e){
-            Log.d("Error: ", e.toString());
+            num++;
+
+        } catch (Exception e) {
+            Log.d("Error", e.toString());
         }
+        numeroText = String.valueOf(num);
     }
 
     private void getPartido() {
@@ -122,7 +118,7 @@ public class VerPartido extends AppCompatActivity {
                                 }
                             });
                 }
-                /*else if (Integer.valueOf(numeroText) == 4) {
+                else if (Integer.valueOf(numeroText) == 4) {
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("Partido completo");
@@ -137,7 +133,7 @@ public class VerPartido extends AppCompatActivity {
 
                                 }
                             });
-                }*/
+                }
                 else {
                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
@@ -153,27 +149,20 @@ public class VerPartido extends AppCompatActivity {
                     JSONObject aux = null;
                     try{
                         aux = partido.getJSONObject(0);
-                        int id = (int)aux.get("fkIdJugador2");
                         String fecha = (String)aux.get("fecha");
                         aux.put("fecha",fecha.substring(0,9));
-                        aux.put("fkIdJugador2", 1);
-                        /*if (id==0){
-                            aux.put("fkIdJugador2", "1");//idSesion
-                        }
-                        else {
-                            id = (int)aux.get("fkIdJugador3");
-                            if (id==0){
-                                aux.put("fkIdJugador3", "1");//idSesion
-                            }
-                            else {
-                                id = (int)aux.get("fkIdJugador4");
-                                if (id==0){
-                                    aux.put("fkIdJugador4", "1");//idSesion
-                                }
-                            }
-                        }*/
+                        String name = "fkIdJugador2";
+                        int id = (int)aux.get("fkIdJugador2");
+                        name = "fkIdJugador3";
+                        id = (int)aux.get("fkIdJugador3");
+                        name = "fkIdJugador4";
+                        id = (int)aux.get("fkIdJugador4");
                     } catch (Exception e){
-                        Log.d("Error: ", e.toString());
+                        try {
+                            aux.put("name", idSesion);
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                     PartidosDAO partidosDAO = new PartidosDAO();
                     partidosDAO.updatePartido(idPartido, aux, new ServerCallBack() {
