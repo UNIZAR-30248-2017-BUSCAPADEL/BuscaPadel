@@ -27,6 +27,6 @@ public class JugadoresDAOTest {
                     e.printStackTrace();
                 }
             }
-        });
+        }, true);
     }
 }

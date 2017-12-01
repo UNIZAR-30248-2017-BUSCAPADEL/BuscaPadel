@@ -5,8 +5,12 @@ import android.database.MatrixCursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -16,11 +20,14 @@ import org.json.JSONObject;
 
 public class partidosPropios extends AppCompatActivity {
 
+    private static final int ELIMINAR = 1;
     private String fecha;
     private String hora;
     private String lugar;
     private String numero;
     private JSONArray partidos;
+
+    private Button eliminarBoton;
 
     private ListView listView;
     private static Bundle extras;
@@ -36,7 +43,9 @@ public class partidosPropios extends AppCompatActivity {
         // Devuelve el id del usuario
         idSesion = intent.getIntExtra("id", 0);
 
-        listView = (ListView) findViewById(R.id.list);
+        listView = (ListView) findViewById(R.id.list2);
+
+        registerForContextMenu(listView);
 
         fillData();
     }
@@ -107,5 +116,42 @@ public class partidosPropios extends AppCompatActivity {
                             from, to);
             listView.setAdapter(partido);
         }
+    }
+
+    /**
+     * Rellena el menú contextual tras mantener pulsado una nota. Las acciones son:
+     * borrar nota, editar nota, enviar nota por mail y enviar nota por sms.
+     * @param menu menu contextual
+     * @param menuInfo información del menú
+     * @param v vista para desplegar el menú con una pulsación larga
+     */
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(Menu.NONE, ELIMINAR, Menu.NONE, "Eliminar partido");
+    }
+
+    /**
+     * Controla los eventos generados por el menú contextual.
+     * @param item elemento seleccionado
+     * @return devuelve false para que el menu contextual continua de forma normal,
+     * true para consumir el item aquí
+     */
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case ELIMINAR:
+                AdapterView.AdapterContextMenuInfo info =
+                        (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                eliminarPartido(info.id);
+                fillData();
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void eliminarPartido(long id) {
+
     }
 }
