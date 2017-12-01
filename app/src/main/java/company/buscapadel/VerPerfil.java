@@ -67,7 +67,7 @@ public class VerPerfil extends AppCompatActivity {
                                     }
                                 });
                     }
-                });
+                }, true);
             }
         });
 
@@ -85,7 +85,7 @@ public class VerPerfil extends AppCompatActivity {
             public void onSuccess(JSONArray result) {
                 showUser(result);
             }
-        });
+        }, true);
     }
 
     private void showUser(JSONArray result) {

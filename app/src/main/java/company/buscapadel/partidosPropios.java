@@ -49,7 +49,7 @@ public class partidosPropios extends AppCompatActivity {
                 JSONArray partidos = parseResult(result);
                 showList(partidos);
             }
-        });
+        }, true);
     }
 
     private JSONArray parseResult(JSONArray result) {

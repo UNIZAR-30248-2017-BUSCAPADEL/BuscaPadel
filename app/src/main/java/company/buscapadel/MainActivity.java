@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                                         dlgAlert.setCancelable(true);
                                         dlgAlert.create().show();
                                     }
-                                });
+                                }, true);
                             } catch (Exception e){
                                 Log.d("Error: ", e.toString());
                                 AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                                 dlgAlert.create().show();
                             }
                         }
-                    });
+                    }, true);
                 }
             }
         });

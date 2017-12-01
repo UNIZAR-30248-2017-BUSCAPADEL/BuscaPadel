@@ -123,7 +123,7 @@ public class registro extends AppCompatActivity {
                                                     }
                                                 });
                                     }
-                                });
+                                }, true);
                             }
                             else {
 
@@ -147,7 +147,7 @@ public class registro extends AppCompatActivity {
                                         });
                             }
                         }
-                    });
+                    }, true);
                 }
             }
         });

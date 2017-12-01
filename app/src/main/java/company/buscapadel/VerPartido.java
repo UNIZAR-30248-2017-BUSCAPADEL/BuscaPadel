@@ -99,7 +99,7 @@ public class VerPartido extends AppCompatActivity {
                 fillData();
                 fillonClick();
             }
-        });
+        }, true);
     }
 
     private void fillonClick() {
@@ -181,7 +181,7 @@ public class VerPartido extends AppCompatActivity {
                         public void onSuccess(JSONArray result) {
 
                         }
-                    });
+                    }, true);
 
                 }
             }

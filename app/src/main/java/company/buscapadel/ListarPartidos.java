@@ -62,7 +62,7 @@ public class ListarPartidos extends AppCompatActivity {
             public void onSuccess(JSONArray result) {
                 showList(result);
             }
-        });
+        }, true);
     }
 
     private void showList(JSONArray result) {
