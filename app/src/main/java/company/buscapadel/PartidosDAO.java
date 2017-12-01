@@ -5,6 +5,7 @@ import android.util.Log;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -24,7 +25,7 @@ import java.util.Map;
 
 public class PartidosDAO {
 
-    public void getPartidos (final ServerCallBack callBack) {
+    public void getPartidos (final ServerCallBack callBack, final boolean firstTime) {
         //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
         String url = "http://10.0.2.2:3000/api/partidos";
 
@@ -37,7 +38,10 @@ public class PartidosDAO {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("Error: ", error.getMessage());
+                if (firstTime && error instanceof TimeoutError) {
+                    // note : may cause recursive invoke if always timeout.
+                    getPartidos(callBack, false);
+                }
             }
         });
 
@@ -46,7 +50,7 @@ public class PartidosDAO {
     }
 
     public void postPartido (final String lugar, final String fecha, final String hora, final int nivel,
-                             final int idJug, final ServerCallBack callBack) {
+                             final int idJug, final ServerCallBack callBack, final boolean firstTime) {
         //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
         String url = "http://10.0.2.2:3000/api/partidos";
 
@@ -73,7 +77,10 @@ public class PartidosDAO {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-
+                        if (firstTime && volleyError instanceof TimeoutError) {
+                            // note : may cause recursive invoke if always timeout.
+                            postPartido(lugar, fecha, hora, nivel, idJug, callBack, false);
+                        }
                     }
                 });
 
@@ -83,7 +90,7 @@ public class PartidosDAO {
 
     }
 
-    public void getPartido (int id, final ServerCallBack callBack) {
+    public void getPartido (final int id, final ServerCallBack callBack, final boolean firstTime) {
         //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
         String url = "http://10.0.2.2:3000/api/partidos/";
         url = url + String.valueOf(id);
@@ -97,7 +104,10 @@ public class PartidosDAO {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("Error: ", error.getMessage());
+                if (firstTime && error instanceof TimeoutError) {
+                    // note : may cause recursive invoke if always timeout.
+                    getPartido(id,callBack, false);
+                }
             }
         });
 
@@ -105,7 +115,7 @@ public class PartidosDAO {
         AppController.getInstance().addToRequestQueue(req);
     }
 
-    public void updatePartido (int id, JSONObject toUpdate,final ServerCallBack callBack){
+    public void updatePartido (final int id, final JSONObject toUpdate, final ServerCallBack callBack, final boolean firstTime){
         //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
         String url = "http://10.0.2.2:3000/api/partidos/";
         url = url + String.valueOf(id);
@@ -120,7 +130,10 @@ public class PartidosDAO {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-
+                        if (firstTime && volleyError instanceof TimeoutError) {
+                            // note : may cause recursive invoke if always timeout.
+                            updatePartido(id, toUpdate, callBack, false);
+                        }
                     }
                 });
 
