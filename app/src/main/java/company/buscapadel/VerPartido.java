@@ -115,6 +115,23 @@ public class VerPartido extends AppCompatActivity {
                 fillData();
                 fillonClick();
             }
+            @Override
+            public void onError() {
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                dlgAlert.setTitle("Error...");
+                dlgAlert.setPositiveButton("OK", null);
+                dlgAlert.setCancelable(true);
+                dlgAlert.create().show();
+
+                dlgAlert.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+            }
         }, true);
     }
 
@@ -129,6 +146,23 @@ public class VerPartido extends AppCompatActivity {
                 } catch (Exception e) {
                     nivelUsuario = 0;
                 }
+            }
+            @Override
+            public void onError() {
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                dlgAlert.setTitle("Error...");
+                dlgAlert.setPositiveButton("OK", null);
+                dlgAlert.setCancelable(true);
+                dlgAlert.create().show();
+
+                dlgAlert.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
             }
         }, true);
         unirseBoton.setOnClickListener(new View.OnClickListener() {
@@ -238,6 +272,23 @@ public class VerPartido extends AppCompatActivity {
                             dlgAlert.create().show();
                             datosPartido();
                             fillData();
+                        }
+                        @Override
+                        public void onError() {
+                            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                            dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                            dlgAlert.setTitle("Error...");
+                            dlgAlert.setPositiveButton("OK", null);
+                            dlgAlert.setCancelable(true);
+                            dlgAlert.create().show();
+
+                            dlgAlert.setPositiveButton("Ok",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
                         }
                     }, true);
 

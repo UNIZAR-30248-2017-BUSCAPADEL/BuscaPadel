@@ -117,6 +117,24 @@ public class iniciarSesion extends AppCompatActivity {
                                         });
                             }
                         }
+
+                        @Override
+                        public void onError() {
+                            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                            dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                            dlgAlert.setTitle("Error...");
+                            dlgAlert.setPositiveButton("OK", null);
+                            dlgAlert.setCancelable(true);
+                            dlgAlert.create().show();
+
+                            dlgAlert.setPositiveButton("Ok",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+                        }
                     }, true);
                 }
             }

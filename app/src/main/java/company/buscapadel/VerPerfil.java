@@ -22,13 +22,15 @@ public class VerPerfil extends AppCompatActivity {
 
     private int idSesion;
 
+    private VerPerfil local;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_perfil);
 
-        final VerPerfil local = this;
+        local = this;
 
         Intent intent = getIntent();
 
@@ -67,6 +69,23 @@ public class VerPerfil extends AppCompatActivity {
                                     }
                                 });
                     }
+                    @Override
+                    public void onError() {
+                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                        dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                        dlgAlert.setTitle("Error...");
+                        dlgAlert.setPositiveButton("OK", null);
+                        dlgAlert.setCancelable(true);
+                        dlgAlert.create().show();
+
+                        dlgAlert.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                    }
                 }, true);
             }
         });
@@ -84,6 +103,23 @@ public class VerPerfil extends AppCompatActivity {
             @Override
             public void onSuccess(JSONArray result) {
                 showUser(result);
+            }
+            @Override
+            public void onError() {
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                dlgAlert.setTitle("Error...");
+                dlgAlert.setPositiveButton("OK", null);
+                dlgAlert.setCancelable(true);
+                dlgAlert.create().show();
+
+                dlgAlert.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
             }
         }, true);
     }

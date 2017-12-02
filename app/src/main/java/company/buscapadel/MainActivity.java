@@ -158,6 +158,23 @@ public class MainActivity extends AppCompatActivity {
                                         dlgAlert.setCancelable(true);
                                         dlgAlert.create().show();
                                     }
+                                    @Override
+                                    public void onError() {
+                                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                                        dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                                        dlgAlert.setTitle("Error...");
+                                        dlgAlert.setPositiveButton("OK", null);
+                                        dlgAlert.setCancelable(true);
+                                        dlgAlert.create().show();
+
+                                        dlgAlert.setPositiveButton("Ok",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+
+                                                    }
+                                                });
+                                    }
                                 }, true);
                             } catch (Exception e){
                                 Log.d("Error: ", e.toString());
@@ -170,6 +187,23 @@ public class MainActivity extends AppCompatActivity {
                                 dlgAlert.setCancelable(true);
                                 dlgAlert.create().show();
                             }
+                        }
+                        @Override
+                        public void onError() {
+                            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                            dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                            dlgAlert.setTitle("Error...");
+                            dlgAlert.setPositiveButton("OK", null);
+                            dlgAlert.setCancelable(true);
+                            dlgAlert.create().show();
+
+                            dlgAlert.setPositiveButton("Ok",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
                         }
                     }, true);
                 }

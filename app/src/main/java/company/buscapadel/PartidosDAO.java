@@ -42,6 +42,9 @@ public class PartidosDAO {
                     // note : may cause recursive invoke if always timeout.
                     getPartidos(callBack, false);
                 }
+                else {
+                    callBack.onError();
+                }
             }
         });
 
@@ -81,6 +84,9 @@ public class PartidosDAO {
                             // note : may cause recursive invoke if always timeout.
                             postPartido(lugar, fecha, hora, nivel, idJug, callBack, false);
                         }
+                        else {
+                            callBack.onError();
+                        }
                     }
                 });
 
@@ -107,6 +113,9 @@ public class PartidosDAO {
                 if (firstTime && error instanceof TimeoutError) {
                     // note : may cause recursive invoke if always timeout.
                     getPartido(id,callBack, false);
+                }
+                else {
+                    callBack.onError();
                 }
             }
         });
@@ -136,6 +145,9 @@ public class PartidosDAO {
                             // note : may cause recursive invoke if always timeout.
                             updatePartido(id, toUpdate, callBack, false);
                         }
+                        else {
+                            callBack.onError();
+                        }
                     }
                 });
 
@@ -163,6 +175,9 @@ public class PartidosDAO {
                         if (firstTime && volleyError instanceof TimeoutError) {
                             // note : may cause recursive invoke if always timeout.
                             eliminarPartido(id, callBack, false);
+                        }
+                        else {
+                            callBack.onError();
                         }
                     }
                 });

@@ -37,6 +37,9 @@ public class JugadoresDAO {
                     // note : may cause recursive invoke if always timeout.
                     getJugadores(callBack, false);
                 }
+                else {
+                    callBack.onError();
+                }
             }
         });
 
@@ -64,6 +67,9 @@ public class JugadoresDAO {
                     // note : may cause recursive invoke if always timeout.
                     getJugador(id,callBack, false);
                 }
+                else {
+                    callBack.onError();
+                }
             }
         });
 
@@ -90,6 +96,9 @@ public class JugadoresDAO {
                 if (firstTime && error instanceof TimeoutError) {
                     // note : may cause recursive invoke if always timeout.
                     getJugadorRegistro(correo,callBack, false);
+                }
+                else {
+                    callBack.onError();
                 }
             }
         });
@@ -128,6 +137,9 @@ public class JugadoresDAO {
                             // note : may cause recursive invoke if always timeout.
                             postJugador(correo,nombre,contrasena,callBack, false);
                         }
+                        else {
+                            callBack.onError();
+                        }
                     }
                 });
 
@@ -165,6 +177,9 @@ public class JugadoresDAO {
                         if (firstTime && volleyError instanceof TimeoutError) {
                             // note : may cause recursive invoke if always timeout.
                             actualizarNivel(id,nivel,callBack, false);
+                        }
+                        else {
+                            callBack.onError();
                         }
                     }
                 });

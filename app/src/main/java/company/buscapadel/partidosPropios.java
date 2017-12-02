@@ -1,6 +1,7 @@
 package company.buscapadel;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.MatrixCursor;
 import android.support.v7.app.AppCompatActivity;
@@ -61,6 +62,23 @@ public class partidosPropios extends AppCompatActivity {
             public void onSuccess(JSONArray result) {
                 JSONArray partidos = parseResult(result);
                 showList(partidos);
+            }
+            @Override
+            public void onError() {
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                dlgAlert.setTitle("Error...");
+                dlgAlert.setPositiveButton("OK", null);
+                dlgAlert.setCancelable(true);
+                dlgAlert.create().show();
+
+                dlgAlert.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
             }
         }, true);
     }
@@ -173,6 +191,23 @@ public class partidosPropios extends AppCompatActivity {
                 dlgAlert.setCancelable(true);
                 dlgAlert.create().show();
                 fillData();
+            }
+            @Override
+            public void onError() {
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                dlgAlert.setTitle("Error...");
+                dlgAlert.setPositiveButton("OK", null);
+                dlgAlert.setCancelable(true);
+                dlgAlert.create().show();
+
+                dlgAlert.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
             }
         }, true);
     }

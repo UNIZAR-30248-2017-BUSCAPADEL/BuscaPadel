@@ -1,5 +1,7 @@
 package company.buscapadel;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.MatrixCursor;
 import android.support.v7.app.AppCompatActivity;
@@ -27,12 +29,16 @@ public class ListarPartidos extends AppCompatActivity {
     private ListView listView;
     private static Bundle extras;
 
+    private ListarPartidos local;
+
     private int idSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_partidos);
+
+        local = this;
 
         Intent intent = getIntent();
         idSesion = intent.getIntExtra("id",0);
@@ -55,6 +61,7 @@ public class ListarPartidos extends AppCompatActivity {
 
             }
         });
+
     }
 
     /**
@@ -66,6 +73,23 @@ public class ListarPartidos extends AppCompatActivity {
             @Override
             public void onSuccess(JSONArray result) {
                 showList(result);
+            }
+            @Override
+            public void onError() {
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                dlgAlert.setTitle("Error...");
+                dlgAlert.setPositiveButton("OK", null);
+                dlgAlert.setCancelable(true);
+                dlgAlert.create().show();
+
+                dlgAlert.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
             }
         }, true);
     }
