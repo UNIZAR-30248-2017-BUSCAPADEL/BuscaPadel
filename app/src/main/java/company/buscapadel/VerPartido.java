@@ -37,6 +37,8 @@ public class VerPartido extends AppCompatActivity {
     private int nivelText;
     private String numeroText;
 
+    private boolean yaUnido;
+
     private int nivelUsuario;
 
     private int idSesion;
@@ -63,6 +65,7 @@ public class VerPartido extends AppCompatActivity {
 
     private void datosPartido() {
         int num = 0;
+        yaUnido=false;
         try {
             JSONObject jsonObject = partido.getJSONObject(0);
             int id = (int) jsonObject.get("id");
@@ -75,12 +78,24 @@ public class VerPartido extends AppCompatActivity {
             lugarText = (String) jsonObject.get("lugar");
             nivelText = (int) jsonObject.get("nivel");
             int id1 = (int) jsonObject.get("fkIdJugador1");
+            if (id1 == idSesion){
+                yaUnido = true;
+            }
             num++;
             int id2 = (int) jsonObject.get("fkIdJugador2");
+            if (id2 == idSesion){
+                yaUnido = true;
+            }
             num++;
             int id3 = (int) jsonObject.get("fkIdJugador3");
+            if (id3 == idSesion){
+                yaUnido = true;
+            }
             num++;
             int id4 = (int) jsonObject.get("fkIdJugador4");
+            if (id4 == idSesion){
+                yaUnido = true;
+            }
             num++;
 
         } catch (Exception e) {
@@ -123,6 +138,22 @@ public class VerPartido extends AppCompatActivity {
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("Debes introducir tu nivel previamente para poder unirte a partidos");
+                    dlgAlert.setTitle("Error...");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+
+                    dlgAlert.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                }
+                else if(yaUnido){
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
+
+                    dlgAlert.setMessage("Ya estás unido a este partido");
                     dlgAlert.setTitle("Error...");
                     dlgAlert.setPositiveButton("OK", null);
                     dlgAlert.setCancelable(true);
