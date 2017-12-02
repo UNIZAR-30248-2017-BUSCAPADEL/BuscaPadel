@@ -1,5 +1,6 @@
 package company.buscapadel;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.MatrixCursor;
 import android.support.v7.app.AppCompatActivity;
@@ -32,11 +33,14 @@ public class partidosPropios extends AppCompatActivity {
     private ListView listView;
     private static Bundle extras;
     private int idSesion;
+    private partidosPropios local;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partidos_propios);
+
+        local = this;
 
         Intent intent = getIntent();
 
@@ -85,22 +89,26 @@ public class partidosPropios extends AppCompatActivity {
 
             // Create an array to specify the fields we want to display in the list
             String[] from = new String[]{"fecha", "hora",
-                    "lugar"};
+                    "lugar", "id"};
 
             MatrixCursor partidoCursor = new MatrixCursor(
-                    new String[]{"_id", "fecha", "hora", "lugar"});
+                    new String[]{"_id", "fecha", "hora", "lugar", "id"});
             startManagingCursor(partidoCursor);
 
             for (int i = 0; i < result.length(); i++) {
                 try {
                     JSONObject jsonObject = result.getJSONObject(i);
                     String fecha = (String) jsonObject.get("fecha");
-                    fecha = fecha.substring(0, 9);
+                    fecha = fecha.substring(0, 10);
+                    if (fecha.contains("T")){
+                        fecha = fecha.substring(0,9);
+                    }
                     String hora = (String) jsonObject.get("hora");
                     String lugar = (String) jsonObject.get("lugar");
+                    int id = (int) jsonObject.get("id");
 
                     partidoCursor.addRow(new Object[]{i, fecha, hora,
-                            lugar});
+                            lugar, id});
                 } catch (Exception e) {
                     Log.d("Error", e.toString());
                 }
@@ -108,7 +116,7 @@ public class partidosPropios extends AppCompatActivity {
 
             // and an array of the fields we want to bind those fields to
             int[] to = new int[]{R.id.fecha, R.id.hora,
-                    R.id.lugar,};
+                    R.id.lugar,R.id.id,};
 
             // Now create an array adapter and set it to display using our row
             SimpleCursorAdapter partido =
@@ -144,14 +152,28 @@ public class partidosPropios extends AppCompatActivity {
             case ELIMINAR:
                 AdapterView.AdapterContextMenuInfo info =
                         (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                eliminarPartido(info.id);
-                fillData();
+                View row = info.targetView;
+                String id = ((TextView) findViewById(R.id.id)).getText().toString();
+                eliminarPartido(Integer.parseInt(id));
                 return true;
         }
         return super.onContextItemSelected(item);
     }
 
     private void eliminarPartido(long id) {
+        PartidosDAO partidosDAO = new PartidosDAO();
+        partidosDAO.eliminarPartido((int)id, new ServerCallBack() {
+            @Override
+            public void onSuccess(JSONArray result) {
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
+                dlgAlert.setMessage("Partido eliminado correctamente");
+                dlgAlert.setTitle("Éxito");
+                dlgAlert.setPositiveButton("OK", null);
+                dlgAlert.setCancelable(true);
+                dlgAlert.create().show();
+                fillData();
+            }
+        }, true);
     }
 }

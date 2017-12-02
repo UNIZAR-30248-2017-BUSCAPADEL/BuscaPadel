@@ -67,7 +67,10 @@ public class VerPartido extends AppCompatActivity {
             JSONObject jsonObject = partido.getJSONObject(0);
             int id = (int) jsonObject.get("id");
             fechaText = (String) jsonObject.get("fecha");
-            fechaText = fechaText.substring(0, 9);
+            fechaText = fechaText.substring(0, 10);
+            if (fechaText.contains("T")){
+                fechaText = fechaText.substring(0,9);
+            }
             horaText = (String) jsonObject.get("hora");
             lugarText = (String) jsonObject.get("lugar");
             nivelText = (int) jsonObject.get("nivel");
@@ -108,15 +111,31 @@ public class VerPartido extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = result.getJSONObject(0);
                     nivelUsuario = (int) jsonObject.get("nivel");
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    nivelUsuario = 0;
                 }
             }
         }, true);
         unirseBoton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                if (nivelUsuario > nivelText + 0.5 || nivelUsuario < nivelText - 0.5) {
+                if (nivelUsuario == 0){
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
+
+                    dlgAlert.setMessage("Debes introducir tu nivel previamente para poder unirte a partidos");
+                    dlgAlert.setTitle("Error...");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+
+                    dlgAlert.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                }
+                else if (nivelUsuario > nivelText + 0.5 || nivelUsuario < nivelText - 0.5) {
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("Nivel de partido no adecuado para usuario");
@@ -149,23 +168,19 @@ public class VerPartido extends AppCompatActivity {
                             });
                 }
                 else {
-                    AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
-
-                    dlgAlert.setMessage("Te has unido al partido en: " + lugarText + " Fecha: " + fechaText +
-                            " Hora: " + horaText + " Nivel: " + nivelText);
-                    dlgAlert.setTitle("Unido");
-                    dlgAlert.setPositiveButton("OK", null);
-                    dlgAlert.setCancelable(true);
-                    dlgAlert.create().show();
-                    //ACTUALIZAR BASE DE DATOS
-//                    Intent i = new Intent(local, Modificar_Perfil_2.class);
-//                    startActivityForResult(i, 0);
                     JSONObject aux = null;
+                    String name = null;
                     try{
                         aux = partido.getJSONObject(0);
                         String fecha = (String)aux.get("fecha");
-                        aux.put("fecha",fecha.substring(0,9));
-                        String name = "fkIdJugador2";
+                        fecha = fecha.substring(0,10);
+                        if (fechaText.contains("T")){
+                            aux.put("fecha",fecha.substring(0,9));
+                        }
+                        else {
+                            aux.put("fecha",fecha);
+                        }
+                        name = "fkIdJugador2";
                         int id = (int)aux.get("fkIdJugador2");
                         name = "fkIdJugador3";
                         id = (int)aux.get("fkIdJugador3");
@@ -173,7 +188,7 @@ public class VerPartido extends AppCompatActivity {
                         id = (int)aux.get("fkIdJugador4");
                     } catch (Exception e){
                         try {
-                            aux.put("name", idSesion);
+                            aux.put(name, idSesion);
                         } catch (JSONException e1) {
                             e1.printStackTrace();
                         }
@@ -182,7 +197,16 @@ public class VerPartido extends AppCompatActivity {
                     partidosDAO.updatePartido(idPartido, aux, new ServerCallBack() {
                         @Override
                         public void onSuccess(JSONArray result) {
+                            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
+                            dlgAlert.setMessage("Te has unido al partido en: " + lugarText + " Fecha: " + fechaText +
+                                    " Hora: " + horaText + " Nivel: " + nivelText);
+                            dlgAlert.setTitle("Unido");
+                            dlgAlert.setPositiveButton("OK", null);
+                            dlgAlert.setCancelable(true);
+                            dlgAlert.create().show();
+                            datosPartido();
+                            fillData();
                         }
                     }, true);
 
