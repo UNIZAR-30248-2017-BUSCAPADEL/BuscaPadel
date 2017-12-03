@@ -178,37 +178,48 @@ public class partidosPropios extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
-    private void eliminarPartido(long id) {
-        PartidosDAO partidosDAO = new PartidosDAO();
-        partidosDAO.eliminarPartido((int)id, new ServerCallBack() {
-            @Override
-            public void onSuccess(JSONArray result) {
-                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+    private void eliminarPartido(final long idPar) {
+        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
-                dlgAlert.setMessage("Partido eliminado correctamente");
-                dlgAlert.setTitle("Éxito");
-                dlgAlert.setPositiveButton("OK", null);
-                dlgAlert.setCancelable(true);
-                dlgAlert.create().show();
-                fillData();
+        dlgAlert.setMessage("¿Seguro que desea eliminar este partido?");
+        dlgAlert.setTitle("Confirmación");
+        dlgAlert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                PartidosDAO partidosDAO = new PartidosDAO();
+                partidosDAO.eliminarPartido((int)idPar, new ServerCallBack() {
+                    @Override
+                    public void onSuccess(JSONArray result) {
+                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                        dlgAlert.setMessage("Partido eliminado correctamente");
+                        dlgAlert.setTitle("Éxito");
+                        dlgAlert.setPositiveButton("OK", null);
+                        dlgAlert.setCancelable(true);
+                        dlgAlert.create().show();
+                        fillData();
+                    }
+                    @Override
+                    public void onError() {
+                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                        dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                        dlgAlert.setTitle("Error...");
+                        dlgAlert.setPositiveButton("OK", null);
+                        dlgAlert.setCancelable(true);
+                        dlgAlert.create().show();
+
+                        dlgAlert.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                    }
+                }, true);
             }
-            @Override
-            public void onError() {
-                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
-
-                dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
-                dlgAlert.setTitle("Error...");
-                dlgAlert.setPositiveButton("OK", null);
-                dlgAlert.setCancelable(true);
-                dlgAlert.create().show();
-
-                dlgAlert.setPositiveButton("Ok",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-            }
-        }, true);
+        });
+        dlgAlert.setNegativeButton("No", null);
+        dlgAlert.setCancelable(true);
+        dlgAlert.create().show();
     }
 }
