@@ -125,6 +125,7 @@ public class ListarPartidos extends AppCompatActivity {
                         fecha = fecha.substring(0,9);
                     }
                     hora = (String) jsonObject.get("hora");
+                    hora = hora.substring(0,5);
                     lugar = (String) jsonObject.get("lugar");
                     int id1 = (int) jsonObject.get("fkIdJugador1");
                     num++;

@@ -149,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
                                 partidos.postPartido(lugarText, fechaText, horaText, nivel, idSesion, new ServerCallBack() {
                                     @Override
                                     public void onSuccess(JSONArray result) {
+                                        ((EditText) findViewById(R.id.editText)).getText().clear();
+                                        ((EditText) findViewById(R.id.editText3)).getText().clear();
+                                        ((EditText) findViewById(R.id.editText4)).getText().clear();
                                         AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
                                         dlgAlert.setMessage("Lugar: " + lugarText + " Fecha: " + fechaText +

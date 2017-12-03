@@ -103,45 +103,45 @@ public class partidosPropios extends AppCompatActivity {
         if (result.length() == 0) {
             TextView empty = (TextView) findViewById(R.id.empty);
             empty.setVisibility(View.VISIBLE);
-        } else {
-
-            // Create an array to specify the fields we want to display in the list
-            String[] from = new String[]{"fecha", "hora",
-                    "lugar", "id"};
-
-            MatrixCursor partidoCursor = new MatrixCursor(
-                    new String[]{"_id", "fecha", "hora", "lugar", "id"});
-            startManagingCursor(partidoCursor);
-
-            for (int i = 0; i < result.length(); i++) {
-                try {
-                    JSONObject jsonObject = result.getJSONObject(i);
-                    String fecha = (String) jsonObject.get("fecha");
-                    fecha = fecha.substring(0, 10);
-                    if (fecha.contains("T")){
-                        fecha = fecha.substring(0,9);
-                    }
-                    String hora = (String) jsonObject.get("hora");
-                    String lugar = (String) jsonObject.get("lugar");
-                    int id = (int) jsonObject.get("id");
-
-                    partidoCursor.addRow(new Object[]{i, fecha, hora,
-                            lugar, id});
-                } catch (Exception e) {
-                    Log.d("Error", e.toString());
-                }
-            }
-
-            // and an array of the fields we want to bind those fields to
-            int[] to = new int[]{R.id.fecha, R.id.hora,
-                    R.id.lugar,R.id.id,};
-
-            // Now create an array adapter and set it to display using our row
-            SimpleCursorAdapter partido =
-                    new SimpleCursorAdapter(this, R.layout.row_partidos_propios, partidoCursor,
-                            from, to);
-            listView.setAdapter(partido);
         }
+
+        // Create an array to specify the fields we want to display in the list
+        String[] from = new String[]{"fecha", "hora",
+                "lugar", "id"};
+
+        MatrixCursor partidoCursor = new MatrixCursor(
+                new String[]{"_id", "fecha", "hora", "lugar", "id"});
+        startManagingCursor(partidoCursor);
+
+        for (int i = 0; i < result.length(); i++) {
+            try {
+                JSONObject jsonObject = result.getJSONObject(i);
+                String fecha = (String) jsonObject.get("fecha");
+                fecha = fecha.substring(0, 10);
+                if (fecha.contains("T")){
+                    fecha = fecha.substring(0,9);
+                }
+                String hora = (String) jsonObject.get("hora");
+                hora = hora.substring(0,5);
+                String lugar = (String) jsonObject.get("lugar");
+                int id = (int) jsonObject.get("id");
+
+                partidoCursor.addRow(new Object[]{i, fecha, hora,
+                        lugar, id});
+            } catch (Exception e) {
+                Log.d("Error", e.toString());
+            }
+        }
+
+        // and an array of the fields we want to bind those fields to
+        int[] to = new int[]{R.id.fecha, R.id.hora,
+                R.id.lugar,R.id.id,};
+
+        // Now create an array adapter and set it to display using our row
+        SimpleCursorAdapter partido =
+                new SimpleCursorAdapter(this, R.layout.row_partidos_propios, partidoCursor,
+                        from, to);
+        listView.setAdapter(partido);
     }
 
     /**

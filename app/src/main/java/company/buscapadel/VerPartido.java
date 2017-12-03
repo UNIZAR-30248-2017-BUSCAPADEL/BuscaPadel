@@ -75,6 +75,7 @@ public class VerPartido extends AppCompatActivity {
                 fechaText = fechaText.substring(0,9);
             }
             horaText = (String) jsonObject.get("hora");
+            horaText = horaText.substring(0,5);
             lugarText = (String) jsonObject.get("lugar");
             nivelText = (int) jsonObject.get("nivel");
             int id1 = (int) jsonObject.get("fkIdJugador1");
