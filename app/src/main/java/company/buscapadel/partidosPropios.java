@@ -31,6 +31,8 @@ public class partidosPropios extends AppCompatActivity {
 
     private Button eliminarBoton;
 
+    private static final int ACTIVITY_RESULTADO_PARTIDO = 0;
+
     private ListView listView;
     private static Bundle extras;
     private int idSesion;
@@ -53,6 +55,28 @@ public class partidosPropios extends AppCompatActivity {
         registerForContextMenu(listView);
 
         fillData();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                listView.getItemAtPosition(position);
+                try{
+                    int idPartido = (int)partidos.getJSONObject(position)
+                            .get("id");
+                    resultadoPartido(idPartido);
+                } catch (Exception e){
+                    Log.d("Error:", e.toString());
+                }
+
+            }
+        });
+    }
+
+    private void resultadoPartido(int idPartido) {
+        Intent i = new Intent(this, ResultadoPartido.class);
+        i.putExtra("idPartido", idPartido);
+        i.putExtra("id", idSesion);
+        startActivityForResult(i, ACTIVITY_RESULTADO_PARTIDO);
     }
 
     private void fillData() {
@@ -104,6 +128,8 @@ public class partidosPropios extends AppCompatActivity {
             TextView empty = (TextView) findViewById(R.id.empty);
             empty.setVisibility(View.VISIBLE);
         }
+
+        partidos = result;
 
         // Create an array to specify the fields we want to display in the list
         String[] from = new String[]{"fecha", "hora",

@@ -99,7 +99,7 @@ public class PartidosDAO {
     }
 
     public void getPartido (final int id, final ServerCallBack callBack, final boolean firstTime) {
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
+        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos/";
         String url = "http://10.0.2.2:3000/api/partidos/";
         //String url = "http://192.168.1.117:3000/api/partidos/";
         url = url + String.valueOf(id);
@@ -128,7 +128,7 @@ public class PartidosDAO {
     }
 
     public void updatePartido (final int id, final JSONObject toUpdate, final ServerCallBack callBack, final boolean firstTime){
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
+        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos/";
         String url = "http://10.0.2.2:3000/api/partidos/";
         //String url = "http://192.168.1.117:3000/api/partidos/";
         url = url + String.valueOf(id);
@@ -160,7 +160,7 @@ public class PartidosDAO {
     }
 
     public void eliminarPartido (final int id, final ServerCallBack callBack, final boolean firstTime){
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
+        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos/";
         String url = "http://10.0.2.2:3000/api/partidos/";
         //String url = "http://192.168.1.117:3000/api/partidos/";
         url = url + String.valueOf(id);
