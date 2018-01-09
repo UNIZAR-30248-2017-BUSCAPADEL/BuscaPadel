@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText fecha;
     private EditText hora;
     private Button crearButton;
+    private ComprobarDatos comprobarDatos;
 
     private int idSesion;
 
@@ -63,17 +64,17 @@ public class MainActivity extends AppCompatActivity {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
                 Date dateSelected = null;
                 int hora = Integer.parseInt(horaParts[0]);
-                int minutos = Integer.parseInt(horaParts[1]);
-                boolean fechaIncorrecta = false;
+                boolean esCorrecta = comprobarDatos.esFechaCorrecta(simpleDateFormat, fechaText);
                 try {
                     dateSelected = simpleDateFormat.parse(fechaText);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    fechaIncorrecta = true;
                 }
                 Date today = Calendar.getInstance().getTime();
 
-                if(fechaText.equals("") || horaText.equals("") || lugarText.equals(""))
+                int tipo = comprobarDatos.analizarDatos(fechaText, horaText, lugarText);
+
+                if(tipo == 1)
                 {
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                 }
-                else if (fechaIncorrecta){
+                else if (!esCorrecta){
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("El formato de fecha es incorrecto, usar yyyy-mm-dd");
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                 }
-                else if (dateSelected.before(today) || superaElMes(today, dateSelected)) {
+                else if (tipo == 2) {
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("La fecha debe ser posterior a hoy y no mas tarde de un mes");
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 }
                             });
-                } else if (hora < 9 || hora >= 21) {
+                } else if (tipo == 3) {
                     AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(local);
 
                     dlgAlert.setMessage("La hora debe ser a partir de las 9 y hasta las 21");
@@ -216,11 +217,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean superaElMes(Date time1, Date time2) {
-        int daysApart = (int)((time2.getTime() - time1.getTime()) / (1000*60*60*24l));
-        if (abs(daysApart) >= 30)
-            return true;
-        else
-            return false;
-    }
+
 }

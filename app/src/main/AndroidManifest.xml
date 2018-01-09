@@ -26,7 +26,8 @@
         <activity android:name=".iniciarSesion" />
         <activity android:name=".registro" />
         <activity android:name=".MenuPrincipal" />
-        <activity android:name=".partidosPropios"></activity>
+        <activity android:name=".partidosPropios" />
+        <activity android:name=".creacionLigas"></activity>
     </application>
 
 </manifest>
