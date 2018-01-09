@@ -8,15 +8,26 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="81dp">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="280dp"
+        android:layout_height="159dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView25"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView24"
+        app:srcCompat="@mipmap/logo_app" />
+
     <TextView
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="167dp"
+        android:layout_marginBottom="174dp"
         android:layout_marginTop="16dp"
         android:text="Iniciar sesión"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/editText9"
+        app:layout_constraintBottom_toTopOf="@+id/textView25"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,21 +38,22 @@
     <TextView
         android:id="@+id/textView25"
         android:layout_width="0dp"
-        android:layout_height="34dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="34dp"
         android:layout_marginEnd="46dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="46dp"
         android:layout_marginStart="16dp"
         android:text="Correo"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView26"
         app:layout_constraintEnd_toStartOf="@+id/editText9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView24"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginRight="46dp"
-        android:layout_marginLeft="16dp" />
+        tools:layout_constraintTop_creator="1" />
 
     <TextView
         android:id="@+id/textView26"
@@ -49,33 +61,32 @@
         android:layout_height="0dp"
         android:layout_marginBottom="53dp"
         android:layout_marginEnd="29dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="29dp"
         android:layout_marginStart="16dp"
         android:text="Contraseña"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/button8"
         app:layout_constraintEnd_toStartOf="@+id/editText8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText9"
+        app:layout_constraintTop_toBottomOf="@+id/textView25"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="29dp" />
+        tools:layout_constraintTop_creator="1" />
 
     <EditText
         android:id="@+id/editText8"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="@+id/textView26"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView26"
         app:layout_constraintTop_toTopOf="@+id/textView26"
-        app:layout_constraintVertical_bias="0.0"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginRight="60dp" />
+        tools:layout_constraintTop_creator="1" />
 
     <Button
         android:id="@+id/button8"
@@ -84,8 +95,8 @@
         android:layout_marginBottom="60dp"
         android:text="Iniciar sesión"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView26"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
@@ -95,15 +106,14 @@
         android:id="@+id/editText9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="29dp"
         android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
         android:ems="10"
         android:hint="Correo"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/textView26"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView25"
-        app:layout_constraintTop_toBottomOf="@+id/textView24"
-        android:layout_marginRight="17dp" />
+        app:layout_constraintStart_toEndOf="@+id/textView25" />
 
 </android.support.constraint.ConstraintLayout>
