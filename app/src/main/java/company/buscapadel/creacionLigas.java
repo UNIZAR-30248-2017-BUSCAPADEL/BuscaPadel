@@ -2,6 +2,7 @@ package company.buscapadel;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,10 @@ public class creacionLigas extends AppCompatActivity {
     private EditText numJugadoresEditText;
     private ToggleButton toggleButton;
     private Button button;
+    private Button addPlayer;
     private String tipo;
+
+    private static final int ACTIVITY_ANADIR_JUGADOR = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,9 @@ public class creacionLigas extends AppCompatActivity {
         nombreEditText = (EditText) findViewById(R.id.editText11);
         numJugadoresEditText = (EditText) findViewById(R.id.editText12);
         toggleButton = (ToggleButton) findViewById(R.id.toggleButton);
-        button = (Button) findViewById(R.id.button12);
+        button = (Button) findViewById(R.id.button3);
+        addPlayer = (Button) findViewById(R.id.button14);
+        final Intent i = new Intent(this, anadirJugador.class);
 
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -42,6 +48,11 @@ public class creacionLigas extends AppCompatActivity {
                 }
             }
         });
+
+        addPlayer.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                startActivityForResult(i, ACTIVITY_ANADIR_JUGADOR);
+            }});
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
