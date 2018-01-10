@@ -89,7 +89,8 @@ public class partidosPropios extends AppCompatActivity {
     public class MyTimerTask extends TimerTask {
         @Override
         public void run() {
-            generateNotification(getApplicationContext(), "Tienes un partido en menos de 12 horas");
+            //comprobar si hay algun partido en 12 horas
+            generateNotification(getApplicationContext(), "Tienes un partido en 12 horas");
         }
     }
 
