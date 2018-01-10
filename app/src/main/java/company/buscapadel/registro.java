@@ -32,8 +32,8 @@ public class registro extends AppCompatActivity {
         final company.buscapadel.registro local = this;
         correo = (EditText) findViewById(R.id.editText6);
         username = (EditText) findViewById(R.id.editText2);
-        password = (EditText) findViewById(R.id.editText5);
-        passwordRepetida = (EditText) findViewById(R.id.editText10);
+        password = (EditText) findViewById(R.id.editText10);
+        passwordRepetida = (EditText) findViewById(R.id.editText5);
         button = (Button) findViewById(R.id.button7);
 
         button.setOnClickListener(new View.OnClickListener() {
