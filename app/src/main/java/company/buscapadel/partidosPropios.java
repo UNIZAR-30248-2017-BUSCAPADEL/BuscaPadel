@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.MatrixCursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -16,6 +17,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.app.NotificationManager;
+import android.support.v7.app.NotificationCompat;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -70,6 +73,12 @@ public class partidosPropios extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void sendNotification(View view) {
+        android.support.v4.app.NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.logo_app).setContentTitle("BuscaPadel")
+                .setContentText("Tienes un partido en menos de 12 horas");
     }
 
     private void resultadoPartido(int idPartido) {
