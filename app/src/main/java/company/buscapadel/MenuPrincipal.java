@@ -12,6 +12,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private Button crearBoton;
     private Button buscarBoton;
     private Button perfilBoton;
+    private Button crearLigaBoton;
 
     private String correoSesion;
 
@@ -28,12 +29,15 @@ public class MenuPrincipal extends AppCompatActivity {
         crearBoton = (Button) findViewById(R.id.button4);
         buscarBoton = (Button) findViewById(R.id.button5);
         perfilBoton = (Button) findViewById(R.id.button6);
+        crearLigaBoton = (Button) findViewById(R.id.button7);
         final Intent crearPartido = new Intent(this, MainActivity.class);
         final Intent buscarPartido = new Intent(this, ListarPartidos.class);
         final Intent verPerfil = new Intent(this, VerPerfil.class);
+        final Intent crearLiga = new Intent(this, creacionLigas.class);
         crearPartido.putExtras(bundle);
         buscarPartido.putExtras(bundle);
         verPerfil.putExtras(bundle);
+        crearLiga.putExtras(bundle);
 
         crearBoton.setOnClickListener(new View.OnClickListener() {
 
@@ -53,6 +57,13 @@ public class MenuPrincipal extends AppCompatActivity {
 
             public void onClick(View view) {
                 startActivity(verPerfil);
+            }
+        });
+
+        crearLigaBoton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(crearLiga);
             }
         });
     }

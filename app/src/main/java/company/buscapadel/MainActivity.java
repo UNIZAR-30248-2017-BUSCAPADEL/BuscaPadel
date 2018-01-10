@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText fecha;
     private EditText hora;
     private Button crearButton;
-    private ComprobarDatos comprobarDatos;
+    private ComprobarDatos comprobarDatos = new ComprobarDatos();
 
     private int idSesion;
 
@@ -158,7 +158,11 @@ public class MainActivity extends AppCompatActivity {
                                         dlgAlert.setMessage("Lugar: " + lugarText + " Fecha: " + fechaText +
                                                 " Hora: " + horaText);
                                         dlgAlert.setTitle("Partido Creado");
-                                        dlgAlert.setPositiveButton("OK", null);
+                                        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                            }
+                                        }   );
                                         dlgAlert.setCancelable(true);
                                         dlgAlert.create().show();
                                     }

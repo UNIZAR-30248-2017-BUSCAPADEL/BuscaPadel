@@ -48,13 +48,13 @@ public class ComprobarDatos {
 
     public boolean esFechaCorrecta(SimpleDateFormat simpleDateFormat, String fecha) {
         Date dateSelected = null;
-        boolean fechaIncorrecta = false;
+        boolean fechaCorrecta = true;
         try {
             dateSelected = simpleDateFormat.parse(fecha);
         } catch (ParseException e) {
             e.printStackTrace();
-            fechaIncorrecta = true;
+            fechaCorrecta = false;
         }
-        return fechaIncorrecta;
+        return fechaCorrecta;
     }
 }

@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -182,6 +183,88 @@ public class JugadoresDAO {
                         if (firstTime && volleyError instanceof TimeoutError) {
                             // note : may cause recursive invoke if always timeout.
                             actualizarNivel(id,nivel,callBack, false);
+                        }
+                        else {
+                            callBack.onError();
+                        }
+                    }
+                });
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(req);
+
+
+    }
+
+    public void actualizarJugador (final JSONObject jugador, final ServerCallBack callBack, final boolean firstTime){
+        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/jugadores/";
+        String url = "http://10.0.2.2:3000/api/jugadores/";
+        //String url = "http://192.168.1.117:3000/api/jugadores/";
+
+        int id = 0;
+        try {
+            id = (int) jugador.get("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        url = url + id;
+
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.PUT, url, jugador,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        JSONArray jsonArray = new JSONArray();
+                        jsonArray.put(jsonObject);
+                        callBack.onSuccess(jsonArray);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (firstTime && volleyError instanceof TimeoutError) {
+                            // note : may cause recursive invoke if always timeout.
+                            actualizarJugador(jugador,callBack, false);
+                        }
+                        else {
+                            callBack.onError();
+                        }
+                    }
+                });
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(req);
+
+
+    }
+
+    public void actualizarJugadorLiga (final JSONObject jugador, final ServerCallBack callBack, final boolean firstTime){
+        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/liga/";
+        String url = "http://10.0.2.2:3000/api/liga/";
+        //String url = "http://192.168.1.117:3000/api/liga/";
+
+        int id = 0;
+        try {
+            id = (int) jugador.get("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        url = url + id;
+
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.PUT, url, jugador,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        JSONArray jsonArray = new JSONArray();
+                        jsonArray.put(jsonObject);
+                        callBack.onSuccess(jsonArray);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (firstTime && volleyError instanceof TimeoutError) {
+                            // note : may cause recursive invoke if always timeout.
+                            actualizarJugadorLiga(jugador,callBack, false);
                         }
                         else {
                             callBack.onError();

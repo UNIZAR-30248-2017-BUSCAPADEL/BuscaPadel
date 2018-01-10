@@ -1,12 +1,20 @@
 package company.buscapadel;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class anadirJugador extends AppCompatActivity {
 
@@ -19,6 +27,9 @@ public class anadirJugador extends AppCompatActivity {
         setContentView(R.layout.activity_anadir_jugador);
 
         final company.buscapadel.anadirJugador local = this;
+
+        final Intent intent = getIntent();
+        final ArrayList<String> correos = intent.getStringArrayListExtra("correos");
 
         correoEditText = (EditText) findViewById(R.id.editText13);
         button = (Button) findViewById(R.id.button13);
@@ -41,10 +52,10 @@ public class anadirJugador extends AppCompatActivity {
 
                                 }
                             });
-                } else if (1 == 0) { //correo no encontrado en base de datos
+                } else if (correos.contains(correo)) {
                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
-                    dlgAlert.setMessage("El correo no existe");
+                    dlgAlert.setMessage("El usuario ya ha sido añadido a la liga");
                     dlgAlert.setTitle("Error...");
                     dlgAlert.setPositiveButton("OK", null);
                     dlgAlert.setCancelable(true);
@@ -57,57 +68,56 @@ public class anadirJugador extends AppCompatActivity {
                                 }
                             });
                 } else {
-                    //BASE DE DATOS
-                    /*JugadoresDAO jugadoresDAO = new JugadoresDAO();
-                    jugadoresDAO.getJugadorRegistro(correoText, new ServerCallBack() {
+                    JugadoresDAO jugadoresDAO = new JugadoresDAO();
+                    jugadoresDAO.getJugadorRegistro(correo, new ServerCallBack() {
                         @Override
                         public void onSuccess(JSONArray result) {
-                            if (result.length()!=0){
+                            if (result.length() != 0) {
                                 try {
                                     JSONObject jsonObject = result.getJSONObject(0);
-                                    String contrasena = (String) jsonObject.get("contrasena");
-                                    int id = (int) jsonObject.get("id");
-                                    if (contrasena.equals(passwordText)) {
-                                        restoApp(correoText, id);
-                                    } else {
+                                    int idLiga = (int) jsonObject.get("fkIdLiga");
 
-                                        ((EditText) findViewById(R.id.editText8)).getText().clear();
-                                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+                                    AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
-                                        dlgAlert.setMessage("El correo o la contraseña son incorrectos");
-                                        dlgAlert.setTitle("Error...");
-                                        dlgAlert.setPositiveButton("OK", null);
-                                        dlgAlert.setCancelable(true);
-                                        dlgAlert.create().show();
-
-                                        dlgAlert.setPositiveButton("Ok",
-                                                new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-
-                                                    }
-                                                });
-                                    }
+                                    dlgAlert.setMessage("El jugador ya pertenece a una liga, prueba con otro correo");
+                                    dlgAlert.setTitle("Érror...");
+                                    dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            ((EditText) findViewById(R.id.editText13)).getText().clear();
+                                        }
+                                    });
+                                    dlgAlert.setCancelable(true);
+                                    dlgAlert.create().show();
                                 } catch (Exception e) {
-                                    Log.d("Error:", e.toString());
+                                    intent.putExtra("correo", correo);
+                                    setResult(Activity.RESULT_OK, intent);
+                                    AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                                    dlgAlert.setMessage("Jugador añadido correctamente");
+                                    dlgAlert.setTitle("Éxito...");
+                                    dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            finish();
+                                        }
+                                    });
+                                    dlgAlert.setCancelable(true);
+                                    dlgAlert.create().show();
                                 }
-                            }
-                            else {
-                                ((EditText) findViewById(R.id.editText8)).getText().clear();
+                            } else {
                                 AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
-                                dlgAlert.setMessage("El correo no ha sido registrado");
-                                dlgAlert.setTitle("Error...");
-                                dlgAlert.setPositiveButton("OK", null);
+                                dlgAlert.setMessage("El correo no está registrado");
+                                dlgAlert.setTitle("Érror...");
+                                dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
                                 dlgAlert.setCancelable(true);
                                 dlgAlert.create().show();
-
-                                dlgAlert.setPositiveButton("Ok",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-
-                                            }
-                                        });
                             }
+
+
                         }
 
                         @Override
@@ -127,7 +137,7 @@ public class anadirJugador extends AppCompatActivity {
                                         }
                                     });
                         }
-                    }, true);*/
+                    }, true);
                 }
             }
         });
