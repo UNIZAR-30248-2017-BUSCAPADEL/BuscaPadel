@@ -1,6 +1,9 @@
 package company.buscapadel;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.MatrixCursor;
@@ -22,6 +25,9 @@ import android.support.v7.app.NotificationCompat;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class partidosPropios extends AppCompatActivity {
 
@@ -73,13 +79,40 @@ public class partidosPropios extends AppCompatActivity {
 
             }
         });
+
+        MyTimerTask myTimerTask = new MyTimerTask();
+        Timer timer = new Timer();
+
+        timer.schedule(myTimerTask, 5000, 1500);
     }
 
-    public void sendNotification(View view) {
-        android.support.v4.app.NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.logo_app).setContentTitle("BuscaPadel")
-                .setContentText("Tienes un partido en menos de 12 horas");
+    public class MyTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            generateNotification(getApplicationContext(), "Tienes un partido en menos de 12 horas");
+        }
     }
+
+    private void generateNotification(Context context, String message) {
+        long when = System.currentTimeMillis();
+        NotificationManager notificationManager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notification;
+        PendingIntent contentIntent = PendingIntent
+                .getActivity(context, 0, new Intent(context, partidosPropios.class), 0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        notification = builder.setContentIntent(contentIntent).setSmallIcon(R.mipmap.logo_app)
+                .setContentTitle("BuscaPadel").setContentText(message).build();
+
+        notificationManager.notify((int) when, notification);
+    }
+
+
+//    public void sendNotification(View view) {
+//        android.support.v4.app.NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+//                .setSmallIcon(R.mipmap.logo_app).setContentTitle("BuscaPadel")
+//                .setContentText("Tienes un partido en menos de 12 horas");
+//    }
 
     private void resultadoPartido(int idPartido) {
         Intent i = new Intent(this, ResultadoPartido.class);
