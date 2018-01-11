@@ -22,8 +22,8 @@ public class JugadoresDAO {
 
     public void getJugadores (final ServerCallBack callBack, final boolean firstTime){
 
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/jugadores";
-        String url = "http://10.0.2.2:3000/api/jugadores";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/jugadores";
+        //String url = "http://10.0.2.2:3000/api/jugadores";
         //String url = "http://192.168.1.117:3000/api/jugadores";
 
         JsonArrayRequest req = new JsonArrayRequest(url,
@@ -52,8 +52,8 @@ public class JugadoresDAO {
 
     public void getJugador (final int id, final ServerCallBack callBack, final boolean firstTime){
 
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/jugadores/";
-        String url = "http://10.0.2.2:3000/api/jugadores/";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/jugadores/";
+        //String url = "http://10.0.2.2:3000/api/jugadores/";
         //String url = "http://192.168.1.117:3000/api/jugadores/";
         url = url + String.valueOf(id);
 
@@ -82,8 +82,8 @@ public class JugadoresDAO {
 
     public void getJugadorRegistro (final String correo, final ServerCallBack callBack, final boolean firstTime){
 
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/registro/";
-        String url = "http://10.0.2.2:3000/api/registro/";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/registro/";
+        //String url = "http://10.0.2.2:3000/api/registro/";
         //String url = "http://192.168.1.117:3000/api/registro/";
         url = url + correo;
 
@@ -113,8 +113,8 @@ public class JugadoresDAO {
 
     public void postJugador (final String correo, final String nombre, final String contrasena,
                              final ServerCallBack callBack, final boolean firstTime) {
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/jugadores";
-        String url = "http://10.0.2.2:3000/api/jugadores";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/jugadores";
+        //String url = "http://10.0.2.2:3000/api/jugadores";
         //String url = "http://192.168.1.117:3000/api/jugadores";
 
         final JSONObject jsonBody = new JSONObject();
@@ -155,8 +155,8 @@ public class JugadoresDAO {
     }
 
     public void actualizarNivel (final int id, final int nivel, final ServerCallBack callBack, final boolean firstTime){
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/nivel/";
-        String url = "http://10.0.2.2:3000/api/nivel/";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/nivel/";
+        //String url = "http://10.0.2.2:3000/api/nivel/";
         //String url = "http://192.168.1.117:3000/api/nivel/";
         url = url + id;
 
@@ -197,8 +197,8 @@ public class JugadoresDAO {
     }
 
     public void actualizarJugador (final JSONObject jugador, final ServerCallBack callBack, final boolean firstTime){
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/jugadores/";
-        String url = "http://10.0.2.2:3000/api/jugadores/";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/jugadores/";
+        //String url = "http://10.0.2.2:3000/api/jugadores/";
         //String url = "http://192.168.1.117:3000/api/jugadores/";
 
         int id = 0;
@@ -238,8 +238,8 @@ public class JugadoresDAO {
     }
 
     public void actualizarJugadorLiga (final JSONObject jugador, final ServerCallBack callBack, final boolean firstTime){
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/liga/";
-        String url = "http://10.0.2.2:3000/api/liga/";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/liga/";
+        //String url = "http://10.0.2.2:3000/api/liga/";
         //String url = "http://192.168.1.117:3000/api/liga/";
 
         int id = 0;

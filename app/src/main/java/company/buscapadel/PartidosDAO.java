@@ -26,8 +26,8 @@ import java.util.Map;
 public class PartidosDAO {
 
     public void getPartidos (final ServerCallBack callBack, final boolean firstTime) {
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
-        String url = "http://10.0.2.2:3000/api/partidos";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
+        //String url = "http://10.0.2.2:3000/api/partidos";
         //String url = "http://192.168.1.117:3000/api/partidos";
 
         JsonArrayRequest req = new JsonArrayRequest(url,
@@ -55,8 +55,8 @@ public class PartidosDAO {
 
     public void postPartido (final String lugar, final String fecha, final String hora, final int nivel,
                              final int idJug, final ServerCallBack callBack, final boolean firstTime) {
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
-        String url = "http://10.0.2.2:3000/api/partidos";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos";
+        //String url = "http://10.0.2.2:3000/api/partidos";
         //String url = "http://192.168.1.117:3000/api/partidos";
 
         final JSONObject jsonBody = new JSONObject();
@@ -99,8 +99,8 @@ public class PartidosDAO {
     }
 
     public void getPartido (final int id, final ServerCallBack callBack, final boolean firstTime) {
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos/";
-        String url = "http://10.0.2.2:3000/api/partidos/";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos/";
+        //String url = "http://10.0.2.2:3000/api/partidos/";
         //String url = "http://192.168.1.117:3000/api/partidos/";
         url = url + String.valueOf(id);
 
@@ -128,8 +128,8 @@ public class PartidosDAO {
     }
 
     public void updatePartido (final int id, final JSONObject toUpdate, final ServerCallBack callBack, final boolean firstTime){
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos/";
-        String url = "http://10.0.2.2:3000/api/partidos/";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos/";
+        //String url = "http://10.0.2.2:3000/api/partidos/";
         //String url = "http://192.168.1.117:3000/api/partidos/";
         url = url + String.valueOf(id);
 
@@ -160,8 +160,8 @@ public class PartidosDAO {
     }
 
     public void eliminarPartido (final int id, final ServerCallBack callBack, final boolean firstTime){
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos/";
-        String url = "http://10.0.2.2:3000/api/partidos/";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/partidos/";
+        //String url = "http://10.0.2.2:3000/api/partidos/";
         //String url = "http://192.168.1.117:3000/api/partidos/";
         url = url + String.valueOf(id);
 

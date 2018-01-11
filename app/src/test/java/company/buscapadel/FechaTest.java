@@ -30,11 +30,11 @@ public class FechaTest {
     }
     @Test
     public void analizarDatosTipo3() throws Exception {
-        assertEquals(3, comprobarDatos.analizarDatos("17-12-12", "1:00", "a"));
+        assertEquals(3, comprobarDatos.analizarDatos("18-2-10", "1:00", "a"));
     }
     @Test
     public void analizarDatosTipo4() throws Exception {
-        assertEquals(0, comprobarDatos.analizarDatos("17-12-12", "10:00", "a"));
+        assertEquals(0, comprobarDatos.analizarDatos("18-2-10", "10:00", "a"));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class FechaTest {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
         Date dateSelected = null;
         try {
-            dateSelected = simpleDateFormat.parse("17-12-12");
+            dateSelected = simpleDateFormat.parse("2018-2-10");
         } catch (ParseException e) {
             e.printStackTrace();
         }

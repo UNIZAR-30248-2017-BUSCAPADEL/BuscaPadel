@@ -112,16 +112,13 @@ public class registro extends AppCompatActivity {
 
                                         dlgAlert.setMessage("Jugador creado correctamente");
                                         dlgAlert.setTitle("Éxito...");
-                                        dlgAlert.setPositiveButton("OK", null);
+                                        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                            }
+                                        });
                                         dlgAlert.setCancelable(true);
                                         dlgAlert.create().show();
-
-                                        dlgAlert.setPositiveButton("Ok",
-                                                new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-
-                                                    }
-                                                });
                                     }
                                     @Override
                                     public void onError() {

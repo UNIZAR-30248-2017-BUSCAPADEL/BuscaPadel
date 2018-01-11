@@ -21,8 +21,8 @@ public class ResultadosDAO {
     public void postResultado (final int idPartido, final int puntosE1S1, final int puntosE2S1, final int puntosE1S2,
                              final int puntosE2S2, final int puntosE1S3, final int puntosE2S3,
                              final ServerCallBack callBack, final boolean firstTime) {
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/resultados";
-        String url = "http://10.0.2.2:3000/api/resultados";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/resultados";
+        //String url = "http://10.0.2.2:3000/api/resultados";
         //String url = "http://192.168.1.117:3000/api/resultados";
 
         final JSONObject jsonBody = new JSONObject();
@@ -70,8 +70,8 @@ public class ResultadosDAO {
     public void postResultado (final int idPartido, final int puntosE1S1, final int puntosE2S1, final int puntosE1S2,
                                final int puntosE2S2,
                                final ServerCallBack callBack, final boolean firstTime) {
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/resultados";
-        String url = "http://10.0.2.2:3000/api/resultados";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/resultados";
+        //String url = "http://10.0.2.2:3000/api/resultados";
         //String url = "http://192.168.1.117:3000/api/resultados";
 
         final JSONObject jsonBody = new JSONObject();
@@ -115,8 +115,8 @@ public class ResultadosDAO {
     }
 
     public void getResultado (final int idPartido, final ServerCallBack callBack, final boolean firstTime) {
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/resultados/";
-        String url = "http://10.0.2.2:3000/api/resultados/";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/resultados/";
+        //String url = "http://10.0.2.2:3000/api/resultados/";
         //String url = "http://192.168.1.117:3000/api/resultados/";
         url = url + String.valueOf(idPartido);
 
@@ -144,8 +144,8 @@ public class ResultadosDAO {
     }
 
     public void getResultados (final ServerCallBack callBack, final boolean firstTime) {
-        //String url = "https://quiet-lowlands-92391.herokuapp.com/api/resultados";
-        String url = "http://10.0.2.2:3000/api/resultados";
+        String url = "https://quiet-lowlands-92391.herokuapp.com/api/resultados";
+        //String url = "http://10.0.2.2:3000/api/resultados";
         //String url = "http://192.168.1.117:3000/api/resultados";
 
         JsonArrayRequest req = new JsonArrayRequest(url,
