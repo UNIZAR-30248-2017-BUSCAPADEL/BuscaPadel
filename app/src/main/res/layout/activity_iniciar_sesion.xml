@@ -37,13 +37,14 @@
 
     <TextView
         android:id="@+id/textView25"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="34dp"
-        android:layout_marginEnd="46dp"
+        android:layout_marginEnd="79dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="46dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="40dp"
         android:text="Correo"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textView26"
@@ -57,13 +58,9 @@
 
     <TextView
         android:id="@+id/textView26"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="53dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="29dp"
-        android:layout_marginStart="16dp"
         android:text="Contraseña"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/button8"
@@ -74,19 +71,29 @@
         tools:layout_constraintTop_creator="1" />
 
     <EditText
+        android:id="@+id/editText9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:layout_marginRight="36dp"
+        android:ems="10"
+        android:hint="Correo"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/textView26"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView25" />
+
+    <EditText
         android:id="@+id/editText8"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="@+id/textView26"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView26"
         app:layout_constraintTop_toTopOf="@+id/textView26"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        app:layout_constraintVertical_bias="0.571" />
 
     <Button
         android:id="@+id/button8"
@@ -102,19 +109,5 @@
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         style="@style/Widget.AppCompat.Button.Colored" />
-
-    <EditText
-        android:id="@+id/editText9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="29dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginRight="17dp"
-        android:ems="10"
-        android:hint="Correo"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/textView26"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView25" />
 
 </android.support.constraint.ConstraintLayout>

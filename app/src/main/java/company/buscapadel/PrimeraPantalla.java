@@ -5,19 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class PrimeraPantalla extends AppCompatActivity {
 
-    private Button registroButton;
-    private Button iniciarSesionButton;
+    private ImageButton registroButton;
+    private ImageButton iniciarSesionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_primera_pantalla);
 
-        registroButton = (Button) findViewById(R.id.button10);
-        iniciarSesionButton = (Button) findViewById(R.id.button9);
+        registroButton = (ImageButton) findViewById(R.id.imageButton2);
+        iniciarSesionButton = (ImageButton) findViewById(R.id.imageButton);
         final Intent iniciar = new Intent(this, iniciarSesion.class);
         final Intent registrar = new Intent(this, registro.class);
 

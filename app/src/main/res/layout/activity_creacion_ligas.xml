@@ -27,7 +27,7 @@
         android:layout_height="63dp"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
-        android:text="Número jugadores"
+        android:text=" Número jugadores"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintStart_toStartOf="parent"
