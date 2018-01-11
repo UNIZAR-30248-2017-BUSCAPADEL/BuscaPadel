@@ -28,6 +28,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,6 +43,11 @@ public class partidosPropios extends AppCompatActivity {
     private JSONArray partidos;
     private ArrayList<String> horas = new ArrayList<>();
     private ArrayList<String> fechas = new ArrayList<>();
+    private String anyoDatos;
+    private String mesDatos;
+    private String diaDatos;
+    private String horaDatos;
+    private String minutosDatos;
 
     private Button eliminarBoton;
 
@@ -87,7 +94,7 @@ public class partidosPropios extends AppCompatActivity {
         MyTimerTask myTimerTask = new MyTimerTask();
         Timer timer = new Timer();
 
-        timer.schedule(myTimerTask, 5000, 1500);
+        timer.schedule(myTimerTask, 150000, 150000);
     }
 
     public class MyTimerTask extends TimerTask {
@@ -95,7 +102,9 @@ public class partidosPropios extends AppCompatActivity {
         public void run() {
             //comprobar si hay algun partido en 12 horas
             getPartidos();
-            generateNotification(getApplicationContext(), "Tienes un partido en 12 horas");
+            if (comprobarDoceHoras(fechas, horas)) {
+                generateNotification(getApplicationContext(), "Tienes un partido en 12 horas");
+            }
         }
     }
 
@@ -158,6 +167,51 @@ public class partidosPropios extends AppCompatActivity {
 //                .setSmallIcon(R.mipmap.logo_app).setContentTitle("BuscaPadel")
 //                .setContentText("Tienes un partido en menos de 12 horas");
 //    }
+
+    private boolean comprobarDoceHoras(ArrayList<String> fechas, ArrayList<String> horas) {
+        String fecha = "";
+        String hora = "";
+        Date today = Calendar.getInstance().getTime();
+        Date date = null;
+        for (int i = 0; i < fechas.size(); i++) {
+            fecha = fechas.get(i);
+            hora = horas.get(i);
+            date = cogerFechaHora(fecha, hora);
+            long diff = date.getTime() - today.getTime();
+            long diffHours = diff / (60 * 60 * 1000) % 24;
+            if (diffHours >= 0 && diffHours <= 12) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Date cogerFechaHora(String fecha, String hora) {
+        String anyoDatos = "";
+        String mesDatos = "";
+        String diaDatos = "";
+        String horaDatos = "";
+        String minutosDatos = "";
+        String anyo = fecha.substring(0,4);
+        String mes = fecha.substring(5,7);
+        String dia = fecha.substring(8,10);
+        String horas = hora.substring(0,2);
+        String minutos = hora.substring(3,5);
+        anyoDatos += anyo;
+        mesDatos += mes;
+        diaDatos += dia;
+        horaDatos += horas;
+        minutosDatos += minutos;
+//        mesDatos.concat(fecha.substring(5,6));
+//        diaDatos.concat(fecha.substring(8,9));
+//        horaDatos.concat(hora.substring(0,1));
+//        minutosDatos.concat(hora.substring(3,4));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Integer.parseInt(anyoDatos),
+                Integer.parseInt(mesDatos) - 1, Integer.parseInt(diaDatos),
+                        Integer.parseInt(horaDatos), Integer.parseInt(minutosDatos));
+        return calendar.getTime();
+    }
 
     private void resultadoPartido(int idPartido) {
         Intent i = new Intent(this, ResultadoPartido.class);
