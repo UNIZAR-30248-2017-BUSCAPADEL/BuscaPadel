@@ -40,6 +40,7 @@ public class partidosPropios extends AppCompatActivity {
     private String numero;
     private JSONArray partidos;
     private ArrayList<String> horas = new ArrayList<>();
+    private ArrayList<String> fechas = new ArrayList<>();
 
     private Button eliminarBoton;
 
@@ -93,7 +94,7 @@ public class partidosPropios extends AppCompatActivity {
         @Override
         public void run() {
             //comprobar si hay algun partido en 12 horas
-            ArrayList<String> horas = getPartidos();
+            getPartidos();
             generateNotification(getApplicationContext(), "Tienes un partido en 12 horas");
         }
     }
@@ -112,7 +113,7 @@ public class partidosPropios extends AppCompatActivity {
         notificationManager.notify((int) when, notification);
     }
 
-    public ArrayList<String> getPartidos(){
+    public void getPartidos(){
         PartidosDAO partidosDAO = new PartidosDAO();
         partidosDAO.getPartidos(new ServerCallBack() {
             @Override
@@ -123,7 +124,9 @@ public class partidosPropios extends AppCompatActivity {
                     try {
                         jsonObject = partidos.getJSONObject(i);
                         String hora = (String) jsonObject.get("hora");
+                        String fecha = (String) jsonObject.get("fecha");
                         horas.add(hora);
+                        fechas.add(fecha);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -147,7 +150,6 @@ public class partidosPropios extends AppCompatActivity {
                         });
             }
         }, true);
-        return horas;
     }
 
 
