@@ -24,8 +24,10 @@ import android.app.NotificationManager;
 import android.support.v7.app.NotificationCompat;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,6 +39,7 @@ public class partidosPropios extends AppCompatActivity {
     private String lugar;
     private String numero;
     private JSONArray partidos;
+    private ArrayList<String> horas = new ArrayList<>();
 
     private Button eliminarBoton;
 
@@ -90,6 +93,7 @@ public class partidosPropios extends AppCompatActivity {
         @Override
         public void run() {
             //comprobar si hay algun partido en 12 horas
+            ArrayList<String> horas = getPartidos();
             generateNotification(getApplicationContext(), "Tienes un partido en 12 horas");
         }
     }
@@ -106,6 +110,44 @@ public class partidosPropios extends AppCompatActivity {
                 .setContentTitle("BuscaPadel").setContentText(message).build();
 
         notificationManager.notify((int) when, notification);
+    }
+
+    public ArrayList<String> getPartidos(){
+        PartidosDAO partidosDAO = new PartidosDAO();
+        partidosDAO.getPartidos(new ServerCallBack() {
+            @Override
+            public void onSuccess(JSONArray result) {
+                JSONArray partidos = parseResult(result);
+                for (int i=0; i<partidos.length(); i++){
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = partidos.getJSONObject(i);
+                        String hora = (String) jsonObject.get("hora");
+                        horas.add(hora);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onError() {
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
+
+                dlgAlert.setMessage("Problema con la base de datos, inténtelo más tarde");
+                dlgAlert.setTitle("Error...");
+                dlgAlert.setPositiveButton("OK", null);
+                dlgAlert.setCancelable(true);
+                dlgAlert.create().show();
+
+                dlgAlert.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+            }
+        }, true);
+        return horas;
     }
 
 
