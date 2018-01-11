@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText lugar;
     private EditText fecha;
-    private EditText hora;
+    private Spinner hora;
     private Button crearButton;
     private ComprobarDatos comprobarDatos = new ComprobarDatos();
 
@@ -51,14 +53,17 @@ public class MainActivity extends AppCompatActivity {
         final company.buscapadel.MainActivity local = this;
         lugar = (EditText) findViewById(R.id.editText);
         fecha = (EditText) findViewById(R.id.editText3);
-        hora = (EditText) findViewById(R.id.editText4);
+        String[] spin = {"9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00",
+                "18:00","19:00","20:00","21:00"};
+        hora = (Spinner) findViewById(R.id.spinner);
+        hora.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spin));
         crearButton = (Button) findViewById(R.id.button);
 
         crearButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 final String fechaText = fecha.getText().toString();
-                final String horaText = hora.getText().toString();
+                final String horaText = hora.getSelectedItem().toString();
                 final String lugarText = lugar.getText().toString();
                 String[] horaParts = horaText.split(":");
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
@@ -150,9 +155,6 @@ public class MainActivity extends AppCompatActivity {
                                 partidos.postPartido(lugarText, fechaText, horaText, nivel, idSesion, new ServerCallBack() {
                                     @Override
                                     public void onSuccess(JSONArray result) {
-                                        ((EditText) findViewById(R.id.editText)).getText().clear();
-                                        ((EditText) findViewById(R.id.editText3)).getText().clear();
-                                        ((EditText) findViewById(R.id.editText4)).getText().clear();
                                         AlertDialog.Builder dlgAlert = new AlertDialog.Builder(local);
 
                                         dlgAlert.setMessage("Lugar: " + lugarText + " Fecha: " + fechaText +
